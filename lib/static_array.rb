@@ -2,19 +2,19 @@
 class StaticArray
 
   def initialize(length)
+    @store = Array.new(length, nil)
   end
 
   # O(1)
   def [](index)
+    @store[index]
   end
 
   # O(1)
   def []=(index, value)
-  end
-
-  def debug_print
+    @store[index] = value
   end
 
   protected
-
+  attr_accessor :store
 end
