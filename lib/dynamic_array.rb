@@ -9,7 +9,11 @@ class DynamicArray
   end
 
   def [](index)
-    @store[index]
+    if index < @length
+      @store[index]
+    else
+      raise "index out of bounds"
+    end
   end
 
   def push(item)
@@ -25,6 +29,10 @@ class DynamicArray
 
     new_store[old_length] = item
     @store = new_store
+  end
+
+  def pop
+    @length -= 1
   end
 
   # O(1)

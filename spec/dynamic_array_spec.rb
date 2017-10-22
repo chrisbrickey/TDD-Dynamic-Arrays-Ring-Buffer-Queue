@@ -19,6 +19,32 @@ describe DynamicArray do
     expect(subject[0]).to eq("apple")
   end
 
+  it "can remove an item and have correct length" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.pop
+    expect(subject.length).to eq(0)
+  end
+
+  it "can remove an item from a larger array and have correct length" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.push("orange")
+    subject.pop
+    expect(subject.length).to eq(1)
+  end
+
+  it "can remove an item and no longer return that item" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.pop
+    expect do
+      subject[0]
+    end.to raise_error("index out of bounds")
+  end
+
+
+
   # it "starts out empty" do
   #   arr = DynamicArray.new
   #   expect(arr.length).to eq(0)
