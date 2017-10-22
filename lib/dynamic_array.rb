@@ -10,7 +10,12 @@ class DynamicArray
 
   def [](index)
     if index < @length
-      @store[index]
+      result = @store[index]
+      if result == nil
+        raise "index out of bounds"
+      else
+        return result
+      end
     else
       raise "index out of bounds"
     end
@@ -33,6 +38,7 @@ class DynamicArray
 
   def pop
     @length -= 1
+    @store[@length]
   end
 
   # O(1)

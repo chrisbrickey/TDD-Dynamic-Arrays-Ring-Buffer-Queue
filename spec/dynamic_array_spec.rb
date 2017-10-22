@@ -43,6 +43,27 @@ describe DynamicArray do
     end.to raise_error("index out of bounds")
   end
 
+  it "returns the item removed by the pop method" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    result = subject.pop
+    expect(result).to eq("apple")
+  end
+
+  it "returns an item when given a negative index in bounds" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    expect(subject[-1]).to eq("apple")
+  end
+
+  it "raises error when given a negative index out of bounds" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    expect do
+      subject[-2]
+    end.to raise_error("index out of bounds")
+  end
+
 
 
   # it "starts out empty" do
