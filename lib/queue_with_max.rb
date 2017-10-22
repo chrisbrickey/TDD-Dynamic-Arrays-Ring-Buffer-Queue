@@ -1,4 +1,4 @@
 require_relative 'ring_buffer'
 
-class QueueWithMax
+class QueueWithMaximum
 end
