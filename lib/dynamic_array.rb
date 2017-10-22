@@ -57,39 +57,4 @@ class DynamicArray
     @store[@length]
   end
 
-  # O(1)
-  # def [](index)
-  #   raise "index out of bounds"
-  # end
-  #
-  # # O(1)
-  # def []=(index, value)
-  # end
-  #
-  # # O(1)
-  # def pop
-  # end
-  #
-  # # O(1) ammortized; O(n) worst case. Variable because of the possible
-  # # resize.
-  # def push(val)
-  # end
-  #
-  # # O(n): has to shift over all the elements.
-  # def shift
-  # end
-  #
-  # # O(n): has to shift over all the elements.
-  # def unshift(val)
-  # end
-  #
-  # protected
-  #
-  #
-  # def check_index(index)
-  # end
-  #
-  # # O(n): has to copy over all the elements to the new store.
-  # def resize!
-  # end
 end
