@@ -57,4 +57,8 @@ class DynamicArray
     @store[@length]
   end
 
+  def shift
+    @length -= 1
+  end
+
 end

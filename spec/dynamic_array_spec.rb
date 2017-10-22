@@ -69,24 +69,27 @@ describe "DynamicArray#push" do
     expect(subject.length).to eq(1)
   end
 
-  it "can retrieve the item that was added to it" do
+  it "retrieves the item that was added to it" do
     subject = DynamicArray.new
     subject.push("apple")
     expect(subject[0]).to eq("apple")
+  end
+
+  xit "runs faster than linear time on average" do
   end
 
 end
 
 describe "DynamicArray#pop" do
 
-  it "can remove an item and have correct length" do
+  it "remove an item and have correct length" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.pop
     expect(subject.length).to eq(0)
   end
 
-  it "can remove an item from a larger array and have correct length" do
+  it "remove an item from a larger array and have correct length" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.push("orange")
@@ -94,7 +97,10 @@ describe "DynamicArray#pop" do
     expect(subject.length).to eq(1)
   end
 
-  it "can remove an item and no longer return that item" do
+  xit "removes an item from the back of a larger array" do
+  end
+
+  it "removes an item and no longer return that item" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.pop
@@ -103,17 +109,49 @@ describe "DynamicArray#pop" do
     end.to raise_error("index out of bounds")
   end
 
-  it "returns the item removed by the pop method" do
+  it "returns the item removed" do
     subject = DynamicArray.new
     subject.push("apple")
     result = subject.pop
     expect(result).to eq("apple")
   end
 
+  xit "runs faster than linear time on average" do
+  end
+
 end
 
 describe "DynamicArray#shift" do
+
+  it "removes an item and result in correct length" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.shift
+    expect(subject.length).to eq(0)
+  end
+
+  it "removes an item from a larger array and result in correct length" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.push("orange")
+    subject.shift
+    expect(subject.length).to eq(1)
+  end
+
+  xit "removes an item from the front of a larger array" do
+  end
+
+  xit "returns the item removed" do
+  end
+
+  xit "runs faster than linear time on average" do
+  end
+
 end
 
 describe "DynamicArray#unshift" do
+
+  xit "runs faster than linear time on average" do
+  end
+
 end
