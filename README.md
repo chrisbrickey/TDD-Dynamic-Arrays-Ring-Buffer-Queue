@@ -1,4 +1,4 @@
-# TESTING >>>>DD for Dynamic Array, Ring Buffer, and Queue
+# TDD for Dynamic Array, Ring Buffer, and Queue
 This is a study in the underlying behavior of high-level arrays (e.g. Python lists).  Using test-driven development, I've created classes that mimic the arrays of higher-level languages with an API (e.g. push, pop methods) that operates on static arrays.
 
 ## To run tests from command line
