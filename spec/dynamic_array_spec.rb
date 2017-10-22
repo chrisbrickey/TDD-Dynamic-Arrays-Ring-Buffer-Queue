@@ -64,6 +64,27 @@ describe DynamicArray do
     end.to raise_error("index out of bounds")
   end
 
+  it "changes an item at a given index" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject[0] = "orange"
+    expect(subject[0]).to eq("orange")
+  end
+
+  it "raises error when asked to change an item at a given positive index out of bounds" do
+    subject = DynamicArray.new
+    expect do
+      subject[0] = "apple"
+    end.to raise_error("index out of bounds")
+  end
+
+  it "raises error when asked to change an item at a given negative index out of bounds" do
+    subject = DynamicArray.new
+    expect do
+      subject[-1] = "apple"
+    end.to raise_error("index out of bounds")
+  end
+
 
 
   # it "starts out empty" do
