@@ -4,11 +4,27 @@ class DynamicArray
   attr_reader :length
 
   def initialize
+    @store = StaticArray.new(0)
     @length = 0
   end
 
+  def [](index)
+    @store[index]
+  end
+
   def push(item)
-    @length += 1
+    old_store = @store
+    old_length = @length
+    new_length = old_length + 1
+    new_store = StaticArray.new(new_length)
+    @length = new_length
+
+    (0...old_length).each do |idx|
+      new_store[idx] = old_store[idx]
+    end
+
+    new_store[old_length] = item
+    @store = new_store
   end
 
   # O(1)

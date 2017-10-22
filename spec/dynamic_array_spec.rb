@@ -13,6 +13,12 @@ describe DynamicArray do
     expect(subject.length).to eq(1)
   end
 
+  it "can retrieve the item that was added to it" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    expect(subject[0]).to eq("apple")
+  end
+
   # it "starts out empty" do
   #   arr = DynamicArray.new
   #   expect(arr.length).to eq(0)
