@@ -11,13 +11,8 @@ class DynamicArray
 
 
   def [](index)
-    if index < @length
-      result = @store[index]
-      if result == nil
-        raise "index out of bounds"
-      else
-        return result
-      end
+    if in_bounds?(index)
+      @store[index]
     else
       raise "index out of bounds"
     end
@@ -25,17 +20,10 @@ class DynamicArray
 
 
   def []=(index, value)
-    if (index < 0) && (index.abs <= @length)
+    if in_bounds?(index)
       @store[index] = value
-      result = @store[index]
-      return result
-    elsif (index < 0) # neg and out of bounds
-      raise "index out of bounds"
-    elsif (index < @length) #pos and in bounds
-      @store[index] = value
-      result = @store[index]
-      return result
-    else # pos and out of bounds
+      @store[index]
+    else
       raise "index out of bounds"
     end
   end
@@ -83,6 +71,18 @@ class DynamicArray
     @store = new_store
 
     old_store[0]
+  end
+
+  private
+
+  def in_bounds?(index)
+    if (index >= 0) && (index < @length)
+      true
+    elsif (index < 0) && (index.abs <= @length)
+      true
+    else
+      false
+    end
   end
 
 end # of the class
