@@ -74,6 +74,12 @@ describe DynamicArray do
       expect(subject[0]).to eq("apple")
     end
 
+    it "adds the item to the end of a larger array" do
+      subject.push("apple")
+      subject.push("orange")
+      expect(subject[1]).to eq("orange")
+    end
+
     it "returns the object on which it is called" do
       result = subject.push("apple")
       expect(result[0]).to eq("apple")
@@ -185,10 +191,20 @@ describe DynamicArray do
       expect(subject.length).to eq(1)
     end
 
-    xit "retrieves the item that was added to it" do
+    it "retrieves the item that was added to it" do
+      subject.unshift("apple")
+      expect(subject[0]).to eq("apple")
     end
 
-    xit "returns the object on which it is called" do
+    it "returns the object on which it is called" do
+      result = subject.unshift("apple")
+      expect(result[0]).to eq("apple")
+    end
+
+    it "adds the item to the beginning of a larger array" do
+      subject.unshift("apple")
+      subject.unshift("orange")
+      expect(subject[1]).to eq("apple")
     end
 
     xit "runs faster than linear time on average" do
