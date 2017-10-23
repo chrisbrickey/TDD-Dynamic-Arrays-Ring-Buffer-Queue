@@ -33,17 +33,15 @@ class DynamicArray
     old_store = @store
     old_length = @length
 
-    #replace lines 45 and 47 with `@length += 1`
-    new_length = old_length + 1
-    new_store = StaticArray.new(new_length)
-    @length = new_length
+    @length += 1
+    @store = StaticArray.new(@length)
 
     (0...old_length).each do |idx|
-      new_store[idx] = old_store[idx]
+      @store[idx] = old_store[idx]
     end
 
-    new_store[old_length] = item
-    @store = new_store
+    @store[old_length] = item
+    @store
   end
 
 
