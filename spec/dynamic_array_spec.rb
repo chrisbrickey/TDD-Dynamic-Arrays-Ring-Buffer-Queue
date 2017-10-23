@@ -64,7 +64,7 @@ describe DynamicArray do
 
   describe "DynamicArray#push" do
 
-    it "accepts a new item" do
+    it "grows when it accepts a new item" do
       subject.push("apple")
       expect(subject.length).to eq(1)
     end
@@ -179,6 +179,17 @@ describe DynamicArray do
   end
 
   describe "DynamicArray#unshift" do
+
+    it "grows when it accepts a new item" do
+      subject.unshift("apple")
+      expect(subject.length).to eq(1)
+    end
+
+    xit "retrieves the item that was added to it" do
+    end
+
+    xit "returns the object on which it is called" do
+    end
 
     xit "runs faster than linear time on average" do
     end
