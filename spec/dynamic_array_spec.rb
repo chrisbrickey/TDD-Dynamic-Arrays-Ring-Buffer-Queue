@@ -75,6 +75,9 @@ describe "DynamicArray#push" do
     expect(subject[0]).to eq("apple")
   end
 
+  xit "returns the object on which it is called" do
+  end
+
   xit "runs faster than linear time on average" do
   end
 
@@ -82,14 +85,14 @@ end
 
 describe "DynamicArray#pop" do
 
-  it "remove an item and have correct length" do
+  it "removes an item and have correct length" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.pop
     expect(subject.length).to eq(0)
   end
 
-  it "remove an item from a larger array and have correct length" do
+  it "removes an item from a larger array and have correct length" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.push("orange")
@@ -100,7 +103,7 @@ describe "DynamicArray#pop" do
   xit "removes an item from the back of a larger array" do
   end
 
-  it "removes an item and no longer return that item" do
+  it "removes an item and no longer returns that item" do
     subject = DynamicArray.new
     subject.push("apple")
     subject.pop
@@ -138,10 +141,19 @@ describe "DynamicArray#shift" do
     expect(subject.length).to eq(1)
   end
 
-  xit "removes an item from the front of a larger array" do
+  it "removes an item from the front of a larger array" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.push("orange")
+    subject.shift
+    expect(subject[0]).to eq("orange")
   end
 
-  xit "returns the item removed" do
+  it "returns the item removed" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    result = subject.shift
+    expect(result).to eq("apple")
   end
 
   xit "runs faster than linear time on average" do
