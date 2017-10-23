@@ -58,17 +58,17 @@ class DynamicArray
 
     old_store = @store
     old_length = @length
+    item_to_be_removed = @store[0]
+
     @length -= 1
-    new_store = StaticArray.new(@length)
+    @store = StaticArray.new(@length)
 
     #omits the 0th element of the old store
     (1...old_length).each do |idx|
-      new_store[idx - 1] = old_store[idx]
+      @store[idx - 1] = old_store[idx]
     end
 
-    @store = new_store
-
-    old_store[0]
+    item_to_be_removed
   end
 
   private
