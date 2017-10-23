@@ -103,7 +103,12 @@ describe "DynamicArray#pop" do
     expect(subject.length).to eq(1)
   end
 
-  xit "removes an item from the back of a larger array" do
+  it "removes an item from the back of a larger array" do
+    subject = DynamicArray.new
+    subject.push("apple")
+    subject.push("orange")
+    subject.pop
+    expect(subject[0]).to eq("apple")
   end
 
   it "removes an item and no longer returns that item" do
