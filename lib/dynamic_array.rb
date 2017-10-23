@@ -71,7 +71,9 @@ class DynamicArray
     item_to_be_removed
   end
 
+
   private
+
 
   def in_bounds?(index)
     if (index >= 0) && (index < @length)
