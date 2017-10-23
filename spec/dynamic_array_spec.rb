@@ -75,7 +75,10 @@ describe "DynamicArray#push" do
     expect(subject[0]).to eq("apple")
   end
 
-  xit "returns the object on which it is called" do
+  it "returns the object on which it is called" do
+    subject = DynamicArray.new
+    result = subject.push("apple")
+    expect(result[0]).to eq("apple")
   end
 
   xit "runs faster than linear time on average" do
