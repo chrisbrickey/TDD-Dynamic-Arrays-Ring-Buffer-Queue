@@ -127,6 +127,18 @@ describe "DynamicArray#pop" do
     expect(result).to eq("apple")
   end
 
+  it "returns nil when array is empty" do
+    subject = DynamicArray.new
+    result = subject.pop
+    expect(result).to eq(nil)
+  end
+
+  it "does not change length when array is empty" do
+    subject = DynamicArray.new
+    subject.pop
+    expect(subject.length).to eq(0)
+  end
+
   xit "runs faster than linear time on average" do
   end
 
@@ -162,6 +174,18 @@ describe "DynamicArray#shift" do
     subject.push("apple")
     result = subject.shift
     expect(result).to eq("apple")
+  end
+
+  it "returns nil when array is empty" do
+    subject = DynamicArray.new
+    result = subject.shift
+    expect(result).to eq(nil)
+  end
+
+  it "does not change length when array is empty" do
+    subject = DynamicArray.new
+    subject.shift
+    expect(subject.length).to eq(0)
   end
 
   xit "runs faster than linear time on average" do
