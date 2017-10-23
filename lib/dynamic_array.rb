@@ -71,6 +71,21 @@ class DynamicArray
     item_to_be_removed
   end
 
+  def unshift(item)
+    old_store = @store
+    old_length = @length
+
+    @length += 1
+    @store = StaticArray.new(@length)
+    @store[0] = item
+
+    (0...old_length).each do |idx|
+      @store[idx + 1] = old_store[idx]
+    end
+
+    @store
+  end
+
 
   private
 
