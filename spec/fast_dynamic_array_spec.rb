@@ -1,21 +1,22 @@
-require "dynamic_array"
+require "slow_dynamic_array"
+require "fast_dynamic_array"
 require "rspec/expectations"
 
 # I've listed the public methods required for my API and am writing tests for each of those methods prior to implementing them
-describe DynamicArray do
+describe FastDynamicArray do
 
   before(:all) do
-    subject = DynamicArray.new
+    subject = FastDynamicArray.new
   end
 
 
-  describe "DynamicArray#initialize" do
+  describe "FastDynamicArray#initialize" do
     it "starts out empty" do
       expect(subject.length).to eq(0)
     end
   end
 
-  describe "DynamicArray#[]" do
+  describe "FastDynamicArray#[]" do
 
     it "returns an item when given a negative index in bounds" do
       subject.push("apple")
@@ -31,7 +32,7 @@ describe DynamicArray do
 
   end
 
-  describe "DynamicArray#[]=" do
+  describe "FastDynamicArray#[]=" do
 
     it "changes an item at a given index" do
       subject.push("apple")
@@ -54,7 +55,7 @@ describe DynamicArray do
   end
 
 
-  # Ultimately, I'd like to design the DynamicArray API
+  # Ultimately, I'd like to design the FastDynamicArray API
   # ...such that all methods run at constant time complexity (on average).
   # To test time complexity, I should be testing the actual time complexities experienced in this environment
   # ...by comparing my API method run times to methods with linear time complexity
@@ -62,7 +63,7 @@ describe DynamicArray do
   # ...then I'm testing the implementation not the behavior. That misses the point of TDD.
 
 
-  describe "DynamicArray#push" do
+  describe "FastDynamicArray#push" do
 
     it "grows when it accepts a new item" do
       subject.push("apple")
@@ -90,7 +91,7 @@ describe DynamicArray do
 
   end
 
-  describe "DynamicArray#pop" do
+  describe "FastDynamicArray#pop" do
 
     it "removes an item and have correct length" do
       subject.push("apple")
@@ -141,7 +142,7 @@ describe DynamicArray do
 
   end
 
-  describe "DynamicArray#shift" do
+  describe "FastDynamicArray#shift" do
 
     it "removes an item and result in correct length" do
       subject.push("apple")
@@ -184,7 +185,7 @@ describe DynamicArray do
 
   end
 
-  describe "DynamicArray#unshift" do
+  describe "FastDynamicArray#unshift" do
 
     it "grows when it accepts a new item" do
       subject.unshift("apple")
@@ -212,4 +213,4 @@ describe DynamicArray do
 
   end
 
-end # of DynamicArray
+end # of FastDynamicArray
