@@ -141,9 +141,6 @@ describe FastDynamicArray do
       expect(subject.length).to eq(0)
     end
 
-    xit "runs faster than linear time on average" do
-    end
-
   end
 
   describe "FastDynamicArray#shift" do
@@ -184,7 +181,25 @@ describe FastDynamicArray do
       expect(subject.length).to eq(0)
     end
 
-    xit "runs faster than linear time on average" do
+    it "runs faster than linear time on average" do
+      #populate the fast array subject
+      5000.times { subject.push(rand(10)) }
+
+      slow_subject = SlowDynamicArray.new
+      5000.times { slow_subject.push(rand(10)) }
+
+      start_time_for_slow_array = Time.now
+      5000.times { slow_subject.shift() }
+      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
+
+      start_time_for_fast_array = Time.now
+      5000.times { subject.shift() }
+      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
+
+      print "slow array: #{elapsed_time_for_slow_array}\n"
+      print "fast array: #{elapsed_time_for_fast_array}\n"
+
+      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
   end
@@ -212,7 +227,20 @@ describe FastDynamicArray do
       expect(subject[1]).to eq("apple")
     end
 
-    xit "runs faster than linear time on average" do
+    it "runs faster than linear time on average" do
+      slow_subject = SlowDynamicArray.new
+      start_time_for_slow_array = Time.now
+      5000.times { slow_subject.unshift(rand(10)) }
+      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
+
+      start_time_for_fast_array = Time.now
+      5000.times { subject.unshift(rand(10)) }
+      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
+
+      print "slow array: #{elapsed_time_for_slow_array}\n"
+      print "fast array: #{elapsed_time_for_fast_array}\n"
+
+      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
   end
