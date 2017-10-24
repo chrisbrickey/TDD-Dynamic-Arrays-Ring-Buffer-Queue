@@ -1,8 +1,6 @@
 require "slow_dynamic_array"
-require "fast_dynamic_array"
 require "rspec/expectations"
 
-# I've listed the public methods required for my API and am writing tests for each of those methods prior to implementing them
 describe SlowDynamicArray do
 
   before(:all) do
@@ -55,14 +53,6 @@ describe SlowDynamicArray do
   end
 
 
-  # Ultimately, I'd like to design the SlowDynamicArray API
-  # ...such that all methods run at constant time complexity (on average).
-  # To test time complexity, I should be testing the actual time complexities experienced in this environment
-  # ...by comparing my API method run times to methods with linear time complexity
-  # If, instead, I tested whether or not a 'resize' helper method is called (doubles size of underlying array to acheive constant time on avg),
-  # ...then I'm testing the implementation not the behavior. That misses the point of TDD.
-
-
   describe "SlowDynamicArray#push" do
 
     it "grows when it accepts a new item" do
@@ -84,9 +74,6 @@ describe SlowDynamicArray do
     it "returns the object on which it is called" do
       result = subject.push("apple")
       expect(result[0]).to eq("apple")
-    end
-
-    xit "runs faster than linear time on average" do
     end
 
   end
@@ -137,9 +124,6 @@ describe SlowDynamicArray do
       expect(subject.length).to eq(0)
     end
 
-    xit "runs faster than linear time on average" do
-    end
-
   end
 
   describe "SlowDynamicArray#shift" do
@@ -180,9 +164,6 @@ describe SlowDynamicArray do
       expect(subject.length).to eq(0)
     end
 
-    xit "runs faster than linear time on average" do
-    end
-
   end
 
   describe "SlowDynamicArray#unshift" do
@@ -206,9 +187,6 @@ describe SlowDynamicArray do
       subject.unshift("apple")
       subject.unshift("orange")
       expect(subject[1]).to eq("apple")
-    end
-
-    xit "runs faster than linear time on average" do
     end
 
   end
