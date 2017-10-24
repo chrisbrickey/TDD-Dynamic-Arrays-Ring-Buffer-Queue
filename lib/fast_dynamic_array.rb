@@ -25,23 +25,8 @@ class FastDynamicArray
 
 
   def push(item)
-    if @capacity > @length
-      @store[@length] = item
-    else
-      old_store = @store
-      old_length = @length
-
-      @capacity *= 2
-      @store = StaticArray.new(@capacity)
-
-      (0...old_length).each do |idx|
-        @store[idx] = old_store[idx]
-      end
-
-      @store[old_length] = item
-
-    end
-
+    resize if @capacity <= @length
+    @store[@length] = item
     @length += 1
     @store
   end
@@ -101,6 +86,18 @@ class FastDynamicArray
       true
     else
       raise "index out of bounds"
+    end
+  end
+
+  def resize
+    old_store = @store
+    old_length = @length
+
+    @capacity *= 2
+    @store = StaticArray.new(@capacity)
+
+    (0...old_length).each do |idx|
+      @store[idx] = old_store[idx]
     end
   end
 
