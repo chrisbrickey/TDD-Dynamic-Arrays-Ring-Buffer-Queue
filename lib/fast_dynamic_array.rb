@@ -30,9 +30,7 @@ class FastDynamicArray
     else
       old_store = @store
       old_length = @length
-
-      @capacity *= 2
-      @store = StaticArray.new(@capacity)
+      resize
 
       (0...old_length).each do |idx|
         @store[idx] = old_store[idx]
@@ -79,11 +77,7 @@ class FastDynamicArray
     old_store = @store
     old_length = @length
 
-
-    if @capacity <= @length
-      @capacity *= 2
-      @store = StaticArray.new(@capacity)
-    end
+    resize if @capacity <= @length
 
     @store[0] = item
     (0...old_length).each do |idx|
@@ -108,8 +102,10 @@ class FastDynamicArray
     end
   end
 
-  def resize
 
+  def resize
+    @capacity *= 2
+    @store = StaticArray.new(@capacity)
   end
 
 
