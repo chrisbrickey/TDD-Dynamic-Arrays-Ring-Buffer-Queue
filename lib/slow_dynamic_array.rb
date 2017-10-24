@@ -1,3 +1,4 @@
+# this SlowDynamicArray is used to provide a baseline for testing efficiency of FastDynamicArray
 require_relative "static_array"
 
 class SlowDynamicArray
