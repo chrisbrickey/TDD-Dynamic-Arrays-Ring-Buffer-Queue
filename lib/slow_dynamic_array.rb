@@ -12,21 +12,15 @@ class SlowDynamicArray
 
 
   def [](index)
-    if in_bounds?(index)
-      @store[index]
-    else
-      raise "index out of bounds"
-    end
+    check_bounds(index)
+    @store[index]
   end
 
 
   def []=(index, value)
-    if in_bounds?(index)
-      @store[index] = value
-      @store[index]
-    else
-      raise "index out of bounds"
-    end
+    check_bounds(index)
+    @store[index] = value
+    @store[index]
   end
 
 
@@ -93,13 +87,13 @@ class SlowDynamicArray
   private
 
 
-  def in_bounds?(index)
+  def check_bounds(index)
     if (index >= 0) && (index < @length)
       true
     elsif (index < 0) && (index.abs <= @length)
       true
     else
-      false
+      raise "index out of bounds"
     end
   end
 
