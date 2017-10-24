@@ -25,21 +25,16 @@ class FastDynamicArray
 
 
   def push(item)
-    if @capacity > @length
-      @store[@length] = item
-    else
+    if @capacity <= @length
       old_store = @store
-      old_length = @length
       resize
 
-      (0...old_length).each do |idx|
+      (0...@length).each do |idx|
         @store[idx] = old_store[idx]
       end
-
-      @store[old_length] = item
-
     end
-
+    
+    @store[@length] = item
     @length += 1
     @store
   end
@@ -70,12 +65,10 @@ class FastDynamicArray
 
   def unshift(item)
     old_store = @store
-    old_length = @length
-
     resize if @capacity <= @length
 
     @store[0] = item
-    (0...old_length).each do |idx|
+    (0...@length).each do |idx|
       @store[idx + 1] = old_store[idx]
     end
 
