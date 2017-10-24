@@ -25,8 +25,23 @@ class FastDynamicArray
 
 
   def push(item)
-    resize if @capacity <= @length
-    @store[@length] = item
+    if @capacity > @length
+      @store[@length] = item
+    else
+      old_store = @store
+      old_length = @length
+
+      @capacity *= 2
+      @store = StaticArray.new(@capacity)
+
+      (0...old_length).each do |idx|
+        @store[idx] = old_store[idx]
+      end
+
+      @store[old_length] = item
+
+    end
+
     @length += 1
     @store
   end
@@ -90,15 +105,7 @@ class FastDynamicArray
   end
 
   def resize
-    old_store = @store
-    old_length = @length
 
-    @capacity *= 2
-    @store = StaticArray.new(@capacity)
-
-    (0...old_length).each do |idx|
-      @store[idx] = old_store[idx]
-    end
   end
 
 
