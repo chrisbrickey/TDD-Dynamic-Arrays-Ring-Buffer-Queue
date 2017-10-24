@@ -12,21 +12,15 @@ class FastDynamicArray
 
 
   def [](index)
-    if in_bounds?(index)
-      @store[index]
-    else
-      raise "index out of bounds"
-    end
+    check_bounds(index)
+    @store[index]
   end
 
 
   def []=(index, value)
-    if in_bounds?(index)
-      @store[index] = value
-      @store[index]
-    else
-      raise "index out of bounds"
-    end
+    check_bounds(index)
+    @store[index] = value
+    @store[index]
   end
 
 
@@ -39,9 +33,9 @@ class FastDynamicArray
       old_store = @store
       old_length = @length
 
+      @capacity *= 2
       @length += 1
-      @store = StaticArray.new(@length)
-      @capacity = @length
+      @store = StaticArray.new(@capacity)
 
       (0...old_length).each do |idx|
         @store[idx] = old_store[idx]
@@ -101,13 +95,13 @@ class FastDynamicArray
   private
 
 
-  def in_bounds?(index)
+  def check_bounds(index)
     if (index >= 0) && (index < @length)
       true
     elsif (index < 0) && (index.abs <= @length)
       true
     else
-      false
+      raise "index out of bounds"
     end
   end
 
