@@ -56,20 +56,15 @@ class FastDynamicArray
   def shift
     return nil if @length < 1
 
-    item_to_be_removed = @store[0]
-
     old_store = @store
-    old_length = @length
-
     @length -= 1
-    @store = StaticArray.new(@length)
 
     #omits the 0th element of the old store
-    (1...old_length).each do |idx|
+    (1..@length).each do |idx|
       @store[idx - 1] = old_store[idx]
     end
 
-    item_to_be_removed
+    old_store[0] #element to be removed
   end
 
 
