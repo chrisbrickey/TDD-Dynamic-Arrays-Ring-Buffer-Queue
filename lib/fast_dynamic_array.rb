@@ -79,14 +79,18 @@ class FastDynamicArray
     old_store = @store
     old_length = @length
 
-    @length += 1
-    @store = StaticArray.new(@length)
+
+    if @capacity <= @length
+      @capacity *= 2
+      @store = StaticArray.new(@capacity)
+    end
 
     @store[0] = item
     (0...old_length).each do |idx|
       @store[idx + 1] = old_store[idx]
     end
 
+    @length += 1
     @store
   end
 
