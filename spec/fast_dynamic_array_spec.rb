@@ -54,15 +54,6 @@ describe FastDynamicArray do
 
   end
 
-
-  # Ultimately, I'd like to design the FastDynamicArray API
-  # ...such that all methods run at constant time complexity (on average).
-  # To test time complexity, I should be testing the actual time complexities experienced in this environment
-  # ...by comparing my API method run times to methods with linear time complexity
-  # If, instead, I tested whether or not a 'resize' helper method is called (doubles size of underlying array to acheive constant time on avg),
-  # ...then I'm testing the implementation not the behavior. That misses the point of TDD.
-
-
   describe "FastDynamicArray#push" do
 
     it "grows when it accepts a new item" do
@@ -86,7 +77,16 @@ describe FastDynamicArray do
       expect(result[0]).to eq("apple")
     end
 
-    xit "runs faster than linear time on average" do
+    it "runs faster than linear time on average" do
+      slow_subject = SlowDynamicArray.new
+      start_time_for_slow_array = Time.now
+      1000.times { slow_subject.push(rand(10)) }
+      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
+
+      start_time_for_fast_array = Time.now
+      1000.times { subject.push(rand(10)) }
+      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
+      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 2)
     end
 
   end
