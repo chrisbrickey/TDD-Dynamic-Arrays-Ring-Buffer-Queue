@@ -80,13 +80,17 @@ describe FastDynamicArray do
     it "runs faster than linear time on average" do
       slow_subject = SlowDynamicArray.new
       start_time_for_slow_array = Time.now
-      1000.times { slow_subject.push(rand(10)) }
+      5000.times { slow_subject.push(rand(10)) }
       elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
 
       start_time_for_fast_array = Time.now
-      1000.times { subject.push(rand(10)) }
+      5000.times { subject.push(rand(10)) }
       elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 2)
+
+      # print "slow array: #{elapsed_time_for_slow_array}\n"
+      # print "fast array: #{elapsed_time_for_fast_array}\n"
+
+      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
   end
