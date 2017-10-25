@@ -43,6 +43,20 @@ class RingBuffer
     @store[@length]
   end
 
+  def shift
+    return nil if @length < 1
+
+    old_store = @store
+    @length -= 1
+
+    #omits the 0th element of the old store
+    (1..@length).each do |idx|
+      @store[idx - 1] = old_store[idx]
+    end
+
+    old_store[0] #element to be removed
+  end
+
   private
 
 
