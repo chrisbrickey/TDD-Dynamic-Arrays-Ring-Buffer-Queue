@@ -23,14 +23,7 @@ class RingBuffer
   end
 
   def push(item)
-    if @capacity <= @length
-      old_store = @store
-      resize
-
-      (0...@length).each do |idx|
-        @store[(@start_idx + idx) % @capacity] = old_store[(@start_idx + idx) % @capacity]
-      end
-    end
+    resize if @capacity <= @length
 
     @store[(@start_idx + @length) % @capacity] = item
     @length += 1
@@ -90,7 +83,12 @@ class RingBuffer
 
   def resize
     @capacity *= 2
-    @store = StaticArray.new(@capacity)
+    # @store = StaticArray.new(@capacity)
+
+    new_store = StaticArray.new(@capacity)
+    @length.times { |idx| new_store[idx] = @store[idx] }
+    @store = new_store
+    @start_idx = 0
   end
 
 end
