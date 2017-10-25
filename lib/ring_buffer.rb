@@ -54,12 +54,22 @@ class RingBuffer
   end
 
   def unshift(item)
-    old_store = @store
-    resize if @capacity <= @length
 
-    @store[@start_idx + 0] = item
-    (0...@length).each do |idx|
-      @store[((@start_idx + idx) % @capacity) + 1] = old_store[(@start_idx + idx) % @capacity]
+    if @capacity <= @length
+      old_store = @store
+      resize
+
+      @store[0] = item
+      (1..@length).each do |idx|
+        @store[idx] = old_store[idx - 1]
+      end
+
+      @start_idx = 0
+    else
+
+      @start_idx = (@start_idx - 1) % @capacity
+      @store[@start_idx] = item
+
     end
 
     @length += 1
@@ -67,7 +77,6 @@ class RingBuffer
   end
 
   private
-
 
   def check_bounds(index)
     if (index >= 0) && (index < @length)
