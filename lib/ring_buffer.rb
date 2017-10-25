@@ -57,6 +57,19 @@ class RingBuffer
     old_store[0] #element to be removed
   end
 
+  def unshift(item)
+    old_store = @store
+    resize if @capacity <= @length
+
+    @store[0] = item
+    (0...@length).each do |idx|
+      @store[idx + 1] = old_store[idx]
+    end
+
+    @length += 1
+    @store
+  end
+
   private
 
 
