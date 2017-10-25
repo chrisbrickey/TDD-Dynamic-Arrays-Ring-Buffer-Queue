@@ -49,4 +49,9 @@ class RingBuffer
     end
   end
 
+  def resize
+    @capacity *= 2
+    @store = StaticArray.new(@capacity)
+  end
+
 end
