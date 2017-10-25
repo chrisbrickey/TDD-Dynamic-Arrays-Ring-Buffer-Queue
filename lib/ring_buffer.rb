@@ -36,6 +36,13 @@ class RingBuffer
     @store
   end
 
+  def pop
+    return nil if @length < 1
+
+    @length -= 1
+    @store[@length]
+  end
+
   private
 
 
