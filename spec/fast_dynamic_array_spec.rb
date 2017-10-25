@@ -87,9 +87,6 @@ describe FastDynamicArray do
       5000.times { subject.push(rand(10)) }
       elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
 
-      # print "slow array: #{elapsed_time_for_slow_array}\n"
-      # print "fast array: #{elapsed_time_for_fast_array}\n"
-
       expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
@@ -182,26 +179,6 @@ describe FastDynamicArray do
     end
 
     # ring buffer required to make shift O(1) on avaerage
-    # it "runs faster than linear time on average" do
-    #   #populate the fast array subject
-    #   5000.times { subject.push(rand(10)) }
-    #
-    #   slow_subject = SlowDynamicArray.new
-    #   5000.times { slow_subject.push(rand(10)) }
-    #
-    #   start_time_for_slow_array = Time.now
-    #   5000.times { slow_subject.shift() }
-    #   elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-    #
-    #   start_time_for_fast_array = Time.now
-    #   5000.times { subject.shift() }
-    #   elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-    #
-    #   print "slow array: #{elapsed_time_for_slow_array}\n"
-    #   print "fast array: #{elapsed_time_for_fast_array}\n"
-    #
-    #   expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    # end
 
   end
 
@@ -222,28 +199,23 @@ describe FastDynamicArray do
       expect(result[0]).to eq("apple")
     end
 
-    it "adds the item to the beginning of a larger array" do
+    it "adds the item to the beginning of a 2-item array" do
       subject.unshift("apple")
       subject.unshift("orange")
+      expect(subject[0]).to eq("orange")
       expect(subject[1]).to eq("apple")
     end
 
+    it "adds the item to the beginning of a 3-item array" do
+      subject.unshift("apple")
+      subject.unshift("orange")
+      subject.unshift("banana")
+      expect(subject[0]).to eq("banana")
+      expect(subject[1]).to eq("orange")
+      expect(subject[2]).to eq("apple")
+    end
+
     # ring buffer required to make unshift O(1) on avaerage
-    # it "runs faster than linear time on average" do
-    #   slow_subject = SlowDynamicArray.new
-    #   start_time_for_slow_array = Time.now
-    #   5000.times { slow_subject.unshift(rand(10)) }
-    #   elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-    #
-    #   start_time_for_fast_array = Time.now
-    #   5000.times { subject.unshift(rand(10)) }
-    #   elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-    #
-    #   print "slow array: #{elapsed_time_for_slow_array}\n"
-    #   print "fast array: #{elapsed_time_for_fast_array}\n"
-    #
-    #   expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    # end
 
   end
 
