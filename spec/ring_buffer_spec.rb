@@ -87,9 +87,6 @@ describe RingBuffer do
       5000.times { subject.push(rand(10)) }
       elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
 
-      # print "slow array: #{elapsed_time_for_slow_array}\n"
-      # print "fast array: #{elapsed_time_for_fast_array}\n"
-
       expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
@@ -196,9 +193,6 @@ describe RingBuffer do
       5000.times { subject.shift() }
       elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
 
-      print "slow array: #{elapsed_time_for_slow_array}\n"
-      print "fast array: #{elapsed_time_for_fast_array}\n"
-
       expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
 
@@ -221,10 +215,29 @@ describe RingBuffer do
       expect(result[0]).to eq("apple")
     end
 
-    it "adds the item to the beginning of a larger array" do
+    it "raises error when given a index out of bounds" do
       subject.unshift("apple")
       subject.unshift("orange")
+      subject.unshift("banana")
+      expect do
+        subject[3]
+      end.to raise_error("index out of bounds")
+    end
+
+    it "adds the item to the beginning of a 2-item array" do
+      subject.unshift("apple")
+      subject.unshift("orange")
+      expect(subject[0]).to eq("orange")
       expect(subject[1]).to eq("apple")
+    end
+
+    it "adds the item to the beginning of a 3-item array" do
+      subject.unshift("apple")
+      subject.unshift("orange")
+      subject.unshift("banana")
+      expect(subject[0]).to eq("banana")
+      expect(subject[1]).to eq("orange")
+      expect(subject[2]).to eq("apple")
     end
 
     it "runs faster than linear time on average" do
@@ -236,9 +249,6 @@ describe RingBuffer do
       start_time_for_fast_array = Time.now
       5000.times { subject.unshift(rand(10)) }
       elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-
-      print "slow array: #{elapsed_time_for_slow_array}\n"
-      print "fast array: #{elapsed_time_for_fast_array}\n"
 
       expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
     end
