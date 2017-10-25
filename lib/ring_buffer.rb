@@ -6,19 +6,20 @@ class RingBuffer
 
   def initialize
     @store = StaticArray.new(1)
-    @length = 0
     @capacity = 1
+    @length = 0
+    @start_idx = 0
   end
 
-  def[](index)
-    check_bounds(index)
-    @store[index]
+  def[](idx)
+    check_bounds(idx)
+    @store[(@start_idx + idx) % @capacity]
   end
 
-  def[]=(index, value)
-    check_bounds(index)
-    @store[index] = value
-    @store[index]
+  def[]=(idx, value)
+    check_bounds(idx)
+    @store[(@start_idx + idx) % @capacity] = value
+    @store[(@start_idx + idx) % @capacity]
   end
 
   def push(item)
