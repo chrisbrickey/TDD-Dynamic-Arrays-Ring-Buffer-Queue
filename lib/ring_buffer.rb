@@ -62,9 +62,9 @@ class RingBuffer
     old_store = @store
     resize if @capacity <= @length
 
-    @store[0] = item
+    @store[@start_idx + 0] = item
     (0...@length).each do |idx|
-      @store[idx + 1] = old_store[idx]
+      @store[((@start_idx + idx) % @capacity) + 1] = old_store[(@start_idx + idx) % @capacity]
     end
 
     @length += 1
