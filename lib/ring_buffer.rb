@@ -52,10 +52,10 @@ class RingBuffer
 
     #omits the 0th element of the old store
     (1..@length).each do |idx|
-      @store[idx - 1] = old_store[idx]
+      @store[((@start_idx + idx) % @capacity) - 1] = old_store[(@start_idx + idx) % @capacity]
     end
 
-    old_store[0] #element to be removed
+    old_store[@start_idx + 0] #element to be removed
   end
 
   def unshift(item)
