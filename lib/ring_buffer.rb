@@ -28,11 +28,11 @@ class RingBuffer
       resize
 
       (0...@length).each do |idx|
-        @store[idx] = old_store[idx]
+        @store[(@start_idx + idx) % @capacity] = old_store[(@start_idx + idx) % @capacity]
       end
     end
 
-    @store[@length] = item
+    @store[(@start_idx + @length) % @capacity] = item
     @length += 1
     @store
   end
@@ -41,7 +41,7 @@ class RingBuffer
     return nil if @length < 1
 
     @length -= 1
-    @store[@length]
+    @store[(@start_idx + @length) % @capacity]
   end
 
   def shift
