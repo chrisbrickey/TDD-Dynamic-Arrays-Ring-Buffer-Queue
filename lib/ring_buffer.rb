@@ -46,16 +46,11 @@ class RingBuffer
 
   def shift
     return nil if @length < 1
+    element_to_be_removed = @store[@start_idx]
 
-    old_store = @store
+    @start_idx = (@start_idx + 1) % @capacity
     @length -= 1
-
-    #omits the 0th element of the old store
-    (1..@length).each do |idx|
-      @store[((@start_idx + idx) % @capacity) - 1] = old_store[(@start_idx + idx) % @capacity]
-    end
-
-    old_store[@start_idx + 0] #element to be removed
+    element_to_be_removed
   end
 
   def unshift(item)
