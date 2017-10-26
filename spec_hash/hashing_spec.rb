@@ -3,47 +3,51 @@ require "rspec/expectations"
 
 describe "Hashing Functions" do
 
-  describe "Fixnum#hash" do
+  describe "Fixnum#my_hash" do
 
     before(:all) do
       subject = 5
     end
 
     it "should return an integer" do
-      expect(subject.hash).to be_a(Integer)
+      p subject.my_hash
+      expect(subject.my_hash).to be_a(Integer)
     end
   end # of Fixnum
 
-  describe "String#hash" do
+  describe "String#my_hash" do
 
     before(:all) do
       subject = "hello"
     end
 
     it "should return an integer" do
-      expect(subject.hash).to be_a(Integer)
+      p subject.my_hash
+      expect(subject.my_hash).to be_a(Integer)
     end
   end # of String
 
-  describe "Array#hash" do
+  describe "Array#my_hash" do
 
     before(:all) do
       subject = [1, 2, 3]
     end
 
     it "should return an integer" do
-      expect(subject.hash).to be_a(Integer)
+      p subject.my_hash
+      expect(subject.my_hash).to be_a(Integer)
     end
   end # of Array
 
-  describe "Hash#hash" do
+  describe "Hash#my_hash" do
 
     before(:all) do
       subject = { "a" => 5, "b" => [5, 6, 9] }
     end
 
     it "should return an integer" do
-      expect(subject.hash).to be_a(Integer)
+      p subject.my_hash
+      expect(subject.my_hash).to be_a(Integer)
     end
   end # of Hash
 
