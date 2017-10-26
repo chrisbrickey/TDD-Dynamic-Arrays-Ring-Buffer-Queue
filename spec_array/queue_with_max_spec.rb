@@ -1,4 +1,4 @@
-require 'queue_with_max'
+require './lib_array/queue_with_max'
 
 describe "QueueWithMaximum#initialize" do
 end

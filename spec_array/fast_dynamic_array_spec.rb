@@ -1,22 +1,22 @@
-require "slow_dynamic_array"
-require "ring_buffer"
+require "./lib_array/slow_dynamic_array"
+require "./lib_array/fast_dynamic_array"
 require "rspec/expectations"
 
 # I've listed the public methods required for my API and am writing tests for each of those methods prior to implementing them
-describe RingBuffer do
+describe FastDynamicArray do
 
   before(:all) do
-    subject = RingBuffer.new
+    subject = FastDynamicArray.new
   end
 
 
-  describe "RingBuffer#initialize" do
+  describe "FastDynamicArray#initialize" do
     it "starts out empty" do
       expect(subject.length).to eq(0)
     end
   end
 
-  describe "RingBuffer#[]" do
+  describe "FastDynamicArray#[]" do
 
     it "returns an item when given a negative index in bounds" do
       subject.push("apple")
@@ -32,7 +32,7 @@ describe RingBuffer do
 
   end
 
-  describe "RingBuffer#[]=" do
+  describe "FastDynamicArray#[]=" do
 
     it "changes an item at a given index" do
       subject.push("apple")
@@ -54,7 +54,7 @@ describe RingBuffer do
 
   end
 
-  describe "RingBuffer#push" do
+  describe "FastDynamicArray#push" do
 
     it "grows when it accepts a new item" do
       subject.push("apple")
@@ -92,7 +92,7 @@ describe RingBuffer do
 
   end
 
-  describe "RingBuffer#pop" do
+  describe "FastDynamicArray#pop" do
 
     it "removes an item and have correct length" do
       subject.push("apple")
@@ -140,7 +140,7 @@ describe RingBuffer do
 
   end
 
-  describe "RingBuffer#shift" do
+  describe "FastDynamicArray#shift" do
 
     it "removes an item and result in correct length" do
       subject.push("apple")
@@ -178,27 +178,11 @@ describe RingBuffer do
       expect(subject.length).to eq(0)
     end
 
-    it "runs faster than linear time on average" do
-      #populate the fast array subject
-      5000.times { subject.push(rand(10)) }
-
-      slow_subject = SlowDynamicArray.new
-      5000.times { slow_subject.push(rand(10)) }
-
-      start_time_for_slow_array = Time.now
-      5000.times { slow_subject.shift() }
-      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-
-      start_time_for_fast_array = Time.now
-      5000.times { subject.shift() }
-      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-
-      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    end
+    # ring buffer required to make shift O(1) on avaerage
 
   end
 
-  describe "RingBuffer#unshift" do
+  describe "FastDynamicArray#unshift" do
 
     it "grows when it accepts a new item" do
       subject.unshift("apple")
@@ -213,15 +197,6 @@ describe RingBuffer do
     it "returns the object on which it is called" do
       result = subject.unshift("apple")
       expect(result[0]).to eq("apple")
-    end
-
-    it "raises error when given a index out of bounds" do
-      subject.unshift("apple")
-      subject.unshift("orange")
-      subject.unshift("banana")
-      expect do
-        subject[3]
-      end.to raise_error("index out of bounds")
     end
 
     it "adds the item to the beginning of a 2-item array" do
@@ -240,19 +215,8 @@ describe RingBuffer do
       expect(subject[2]).to eq("apple")
     end
 
-    it "runs faster than linear time on average" do
-      slow_subject = SlowDynamicArray.new
-      start_time_for_slow_array = Time.now
-      5000.times { slow_subject.unshift(rand(10)) }
-      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-
-      start_time_for_fast_array = Time.now
-      5000.times { subject.unshift(rand(10)) }
-      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-
-      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    end
+    # ring buffer required to make unshift O(1) on avaerage
 
   end
 
-end # of RingBuffer
+end # of FastDynamicArray

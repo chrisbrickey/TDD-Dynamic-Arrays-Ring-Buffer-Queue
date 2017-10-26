@@ -1,22 +1,20 @@
-require "slow_dynamic_array"
-require "fast_dynamic_array"
+require "./lib_array/slow_dynamic_array"
 require "rspec/expectations"
 
-# I've listed the public methods required for my API and am writing tests for each of those methods prior to implementing them
-describe FastDynamicArray do
+describe SlowDynamicArray do
 
   before(:all) do
-    subject = FastDynamicArray.new
+    subject = SlowDynamicArray.new
   end
 
 
-  describe "FastDynamicArray#initialize" do
+  describe "SlowDynamicArray#initialize" do
     it "starts out empty" do
       expect(subject.length).to eq(0)
     end
   end
 
-  describe "FastDynamicArray#[]" do
+  describe "SlowDynamicArray#[]" do
 
     it "returns an item when given a negative index in bounds" do
       subject.push("apple")
@@ -32,7 +30,7 @@ describe FastDynamicArray do
 
   end
 
-  describe "FastDynamicArray#[]=" do
+  describe "SlowDynamicArray#[]=" do
 
     it "changes an item at a given index" do
       subject.push("apple")
@@ -54,7 +52,8 @@ describe FastDynamicArray do
 
   end
 
-  describe "FastDynamicArray#push" do
+
+  describe "SlowDynamicArray#push" do
 
     it "grows when it accepts a new item" do
       subject.push("apple")
@@ -77,22 +76,9 @@ describe FastDynamicArray do
       expect(result[0]).to eq("apple")
     end
 
-    it "runs faster than linear time on average" do
-      slow_subject = SlowDynamicArray.new
-      start_time_for_slow_array = Time.now
-      5000.times { slow_subject.push(rand(10)) }
-      elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-
-      start_time_for_fast_array = Time.now
-      5000.times { subject.push(rand(10)) }
-      elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-
-      expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    end
-
   end
 
-  describe "FastDynamicArray#pop" do
+  describe "SlowDynamicArray#pop" do
 
     it "removes an item and have correct length" do
       subject.push("apple")
@@ -140,7 +126,7 @@ describe FastDynamicArray do
 
   end
 
-  describe "FastDynamicArray#shift" do
+  describe "SlowDynamicArray#shift" do
 
     it "removes an item and result in correct length" do
       subject.push("apple")
@@ -178,11 +164,9 @@ describe FastDynamicArray do
       expect(subject.length).to eq(0)
     end
 
-    # ring buffer required to make shift O(1) on avaerage
-
   end
 
-  describe "FastDynamicArray#unshift" do
+  describe "SlowDynamicArray#unshift" do
 
     it "grows when it accepts a new item" do
       subject.unshift("apple")
@@ -199,24 +183,12 @@ describe FastDynamicArray do
       expect(result[0]).to eq("apple")
     end
 
-    it "adds the item to the beginning of a 2-item array" do
+    it "adds the item to the beginning of a larger array" do
       subject.unshift("apple")
       subject.unshift("orange")
-      expect(subject[0]).to eq("orange")
       expect(subject[1]).to eq("apple")
     end
 
-    it "adds the item to the beginning of a 3-item array" do
-      subject.unshift("apple")
-      subject.unshift("orange")
-      subject.unshift("banana")
-      expect(subject[0]).to eq("banana")
-      expect(subject[1]).to eq("orange")
-      expect(subject[2]).to eq("apple")
-    end
-
-    # ring buffer required to make unshift O(1) on avaerage
-
   end
 
-end # of FastDynamicArray
+end # of SlowDynamicArray
