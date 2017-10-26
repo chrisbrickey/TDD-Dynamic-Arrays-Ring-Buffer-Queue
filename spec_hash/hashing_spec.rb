@@ -3,15 +3,10 @@ require "rspec/expectations"
 
 describe "Hashing Functions" do
 
-  describe "Fixnum#my_hash" do
-
-    before(:all) do
-      subject = 5
-    end
+  describe "Integer#my_hash" do
 
     it "should return an integer" do
-      p subject.my_hash
-      expect(subject.my_hash).to be_a(Integer)
+      expect(5.my_hash).to be_a(Integer)
     end
   end # of Fixnum
 
