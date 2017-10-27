@@ -38,11 +38,8 @@ describe "Hashing Functions" do
 
   end # of Fixnum
 
-  describe "String#my_hash" do
 
-    before(:all) do
-      subject = "hello"
-    end
+  describe "String#my_hash" do
 
     it "should return an integer" do
       expect(subject.my_hash).to be_a(Integer)
@@ -64,27 +61,21 @@ describe "Hashing Functions" do
     end
   end # of String
 
+
   describe "Array#my_hash" do
 
-    before(:all) do
-      subject = [1, 2, 3]
-    end
-
     it "should return an integer" do
-      p subject.my_hash
-      expect(subject.my_hash).to be_a(Integer)
+      expect([1, 2, 3].my_hash).to be_a(Integer)
     end
   end # of Array
 
+
   describe "Hash#my_hash" do
 
-    before(:all) do
-      subject = { "a" => 5, "b" => [5, 6, 9] }
-    end
-
     it "should return an integer" do
-      p subject.my_hash
-      expect(subject.my_hash).to be_a(Integer)
+      x = { "a" => 5, "b" => [5, 6, 9] }
+      p x.my_hash
+      expect(x.my_hash).to be_a(Integer)
     end
   end # of Hash
 
