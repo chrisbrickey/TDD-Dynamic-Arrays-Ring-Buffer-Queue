@@ -14,7 +14,7 @@ describe "Hashing Functions" do
     end
 
     it "should handle zero" do
-      expect(0.my_hash).not_to eq(0)
+      expect(0.my_hash.to_s.length).to be > 1
     end
 
     it "should handle negative integers" do
@@ -50,7 +50,7 @@ describe "Hashing Functions" do
     end
 
     it "should handle empty string" do
-      expect("".my_hash).not_to eq("")
+      expect("".my_hash.to_s.length).to be > 1
     end
 
     it "should not return similar results for similar strings" do
@@ -59,6 +59,7 @@ describe "Hashing Functions" do
       expect(forward.my_hash.to_s.reverse).not_to eq(backward.to_s.my_hash)
       expect(a.my_hash).not_to eq(b.my_hash)
     end
+
   end # of String
 
 
@@ -73,7 +74,7 @@ describe "Hashing Functions" do
     end
 
     it "should handle an empty array" do
-      expect([].my_hash).not_to eq(0)
+      expect([].my_hash.to_s.length).to be > 1
     end
 
     it "should handle multi-dimensional arrays" do
@@ -91,6 +92,7 @@ describe "Hashing Functions" do
       expect(forward.my_hash.to_s.reverse).not_to eq(backward.to_s.my_hash)
       expect(positive.my_hash).not_to eq(negative.my_hash)
     end
+
   end # of Array
 
 
@@ -98,9 +100,28 @@ describe "Hashing Functions" do
 
     it "should return an integer" do
       x = { "a" => 5, "b" => [5, 6, 9] }
-      p x.my_hash
       expect(x.my_hash).to be_a(Integer)
     end
+
+    it "should hash in a deterministic way" do
+      x = { "a" => 5, "b" => [5, 6, 9] }
+      expect(x.my_hash).to eq(x.my_hash)
+    end
+
+    it "should handle an empty hash" do
+      expect({}.my_hash.to_s.length).to be > 1
+    end
+
+    it "should not return a negative integer" do
+      expect({-96 => :l, 3 => "hello", -1008 => 5 }.my_hash).to be > 0
+      expect({-96 => :l, -3 => "hello", -1008 => 5 }.my_hash).to be > 0
+    end
+
+    it "should not return similar results for similar hashes" do
+      positive, negative = [{ 1 => "a", 2 => "a", 3 => "a" }, { -1 => "a", -2 => "a", -3 => "a" }]
+      expect(positive.my_hash).not_to eq(negative.my_hash)
+    end
+
   end # of Hash
 
 end # of hashing
