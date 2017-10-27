@@ -14,11 +14,24 @@ class Integer
 
 end
 
+class String
+
+  def my_hash
+    salt = 702
+    result = 1
+    self.each_char.with_index do |char, idx|
+      result *= (salt * (char.ord + idx))
+    end
+
+    result
+  end
+
+end
+
 
 class Array
 
   def my_hash
-    salt = 242
     "a"
   end
 
@@ -27,17 +40,7 @@ end
 class Hash
 
   def my_hash
-    salt = 384
-    "a"
-  end
-
-end
-
-class String
-
-  def my_hash
-    salt = 702
-    "a"
+    "h"
   end
 
 end
