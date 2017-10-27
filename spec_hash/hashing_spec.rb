@@ -10,15 +10,25 @@ describe "Hashing Functions" do
     end
 
     it "should hash in a deterministic way" do
-      expect(59.my_hash).not_to eq(95)
       expect(95.my_hash).to eq(95.my_hash)
     end
 
     it "should handle zero" do
-      expect(0.my_hash).no to_eq(0)
+      expect(0.my_hash).not_to eq(0)
     end
 
-    it "should not return similar results for "
+    it "should handle negative integers" do
+      # p -34.hash
+      expect(-34.my_hash).to be_a(Integer)
+    end
+
+    it "should not return similar results for similar numbers" do
+      forward, backward = [59, 95]
+      positive, negative = [-59, 59]
+      expect(forward.my_hash.to_s.reverse).not_to eq(backward.to_s.my_hash)
+      expect(positive.my_hash * -1).not_to eq(negative.my_hash)
+      expect(positive.my_hash).not_to eq(negative.my_hash)
+    end
 
   end # of Fixnum
 
