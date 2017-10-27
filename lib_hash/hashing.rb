@@ -49,7 +49,16 @@ end
 class Hash
 
   def my_hash
-    "h"
+    salt = 384
+    result = 1
+    self.each do |key|
+      key_str = key.to_s
+      key_str.each_char.with_index do |char, idx|
+        result *= (salt * (char.ord + idx))
+      end
+    end
+
+    result
   end
 
 end
