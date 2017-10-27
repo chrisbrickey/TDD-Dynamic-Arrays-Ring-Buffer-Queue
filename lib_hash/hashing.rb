@@ -32,7 +32,16 @@ end
 class Array
 
   def my_hash
-    "a"
+    salt = 242
+    result = 1
+    self.each do |el|
+      el_str = el.to_s
+      el_str.each_char.with_index do |char, idx|
+        result *= (salt * (char.ord + idx))
+      end
+    end
+
+    result
   end
 
 end
