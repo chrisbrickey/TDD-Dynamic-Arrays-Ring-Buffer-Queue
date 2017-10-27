@@ -57,7 +57,7 @@ describe "Hashing Functions" do
       forward, backward = ["hello", "olleh"]
       a, b = ["hello", "iello"]
       expect(forward.my_hash.to_s.reverse).not_to eq(backward.to_s.my_hash)
-      expect(a.my_hash * -1).not_to eq(b.my_hash)
+      expect(a.my_hash).not_to eq(b.my_hash)
     end
   end # of String
 
@@ -65,7 +65,31 @@ describe "Hashing Functions" do
   describe "Array#my_hash" do
 
     it "should return an integer" do
-      expect([1, 2, 3].my_hash).to be_a(Integer)
+      expect([1, "hello", 3].my_hash).to be_a(Integer)
+    end
+
+    it "should hash in a deterministic way" do
+      expect([1, 2, "oh yeah"].my_hash).to eq([1, 2, "oh yeah"].my_hash)
+    end
+
+    it "should handle an empty array" do
+      expect([].my_hash).not_to eq(0)
+    end
+
+    it "should handle multi-dimensional arrays" do
+      expect([[9, 8, 7], 2, "world", [3, "what"]].my_hash).to be_a(Integer)
+    end
+
+    it "should not return a negative integer" do
+      expect([-96, 3, -1008].my_hash).to be > 0
+      expect([-96, -3, -1008].my_hash).to be > 0
+    end
+
+    it "should not return similar results for similar arrays" do
+      forward, backward = [[1, 2, 3],[3, 2, 1]]
+      positive, negative = [[1, 2, 3], [-1, -2, -3]]
+      expect(forward.my_hash.to_s.reverse).not_to eq(backward.to_s.my_hash)
+      expect(positive.my_hash).not_to eq(negative.my_hash)
     end
   end # of Array
 
