@@ -22,6 +22,9 @@ describe HashSet do
       element = "a"
       desired_position = element.my_hash % 4
       subject.insert(element)
+
+    p subject.store
+
       expect(subject.store[desired_position][0]).to eq(element)
     end
 
@@ -31,10 +34,15 @@ describe HashSet do
       el6 = 42
       el7 = [5, "a", -700]
       el8 = { "a" => [4, 5, 6], "b" => "hello" }
+
+
+
       [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
         desired_position = el.my_hash % subject.size
         subject.insert(el)
         expect(subject.store[desired_position].include?(el)).to be(true)
+
+        p subject.store
       end
 
     end
