@@ -10,10 +10,6 @@ describe HashSet do
 
   describe "HashSet#initialize" do
 
-    # before(:all) do
-    #   subject = HashSet.new
-    # end
-
     it "initializes to length of 4" do
       expect(subject.size).to eq(4)
     end
@@ -26,11 +22,47 @@ describe HashSet do
       element = "a"
       desired_position = element.my_hash % 4
       subject.insert(element)
-      expect(subject[desired_position]).to be(element)
+      expect(subject[desired_position][0]).to eq(element)
     end
 
-    xit "inserts an element regardless of type" do
+    it "inserts an element regardless of type" do
+      el1, el2, el3, el4 = 0, "", [], {}
+      el5 = -73
+      el6 = 42
+      el7 = [5, "a", -700]
+      el8 = { "a" => [4, 5, 6], "b" => "hello" }
+      [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
+        desired_position = el.my_hash % subject.size
+        subject.insert(el)
+        expect(subject[desired_position].include?(el)).to be(true)
+      end
 
+    end
+
+    xit "manages collisions; holds multiple elements inserted at the same position" do
+      this_size = subject.size
+      position = nil
+      el1 = "a"
+      el1_position = el1.my_hash % this_size
+      el2 = nil
+
+      ("b".."z").each do |letter|
+        letter_position = letter.my_hash % this_size
+        if el1_position == letter_position
+          position = el1_position
+          el2 = letter
+          break
+        end
+      end
+
+      print el1
+      print el2
+      print el1_position
+
+      subject.insert(el1)
+      subject.insert(el2)
+      expect(subject.include?(el1)).to be(true)
+      expect(subject.include?(el2)).to be(true)
     end
 
     xit "runs faster than linear time on average" do
