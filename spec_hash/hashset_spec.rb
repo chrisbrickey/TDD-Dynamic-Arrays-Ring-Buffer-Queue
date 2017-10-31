@@ -2,13 +2,17 @@ require "./lib_hash/hashset"
 require "./lib_hash/hashing"
 require "rspec/expectations"
 
-describe "HashSet" do
+describe HashSet do
 
   before(:all) do
     subject = HashSet.new
   end
 
   describe "HashSet#initialize" do
+
+    # before(:all) do
+    #   subject = HashSet.new
+    # end
 
     it "initializes to length of 4" do
       expect(subject.size).to eq(4)
