@@ -22,7 +22,7 @@ describe HashSet do
       element = "a"
       desired_position = element.my_hash % 4
       subject.insert(element)
-      expect(subject[desired_position][0]).to eq(element)
+      expect(subject.store[desired_position][0]).to eq(element)
     end
 
     it "inserts an element regardless of type" do
@@ -34,12 +34,12 @@ describe HashSet do
       [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
         desired_position = el.my_hash % subject.size
         subject.insert(el)
-        expect(subject[desired_position].include?(el)).to be(true)
+        expect(subject.store[desired_position].include?(el)).to be(true)
       end
 
     end
 
-    xit "manages collisions; holds multiple elements inserted at the same position" do
+    it "manages collisions; holds multiple elements inserted at the same position" do
       this_size = subject.size
       position = nil
       el1 = "a"
@@ -55,14 +55,16 @@ describe HashSet do
         end
       end
 
-      print el1
-      print el2
-      print el1_position
+      # print el1
+      # print el1.my_hash % this_size
+      # print el2
+      # print el2.my_hash % this_size
+      # print el1_position
 
       subject.insert(el1)
       subject.insert(el2)
-      expect(subject.include?(el1)).to be(true)
-      expect(subject.include?(el2)).to be(true)
+      expect(subject.store[position].include?(el1)).to be(true)
+      expect(subject.store[position].include?(el2)).to be(true)
     end
 
     xit "runs faster than linear time on average" do
