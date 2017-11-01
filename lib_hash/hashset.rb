@@ -14,6 +14,19 @@ class HashSet
     @store[position] << element
   end
 
+  def remove(element)
+    position = element.my_hash % @size
+    new_subarray = []
+    @store[position].each do |el|
+      if el != element
+        new_subarray << el
+      end
+    end
+    @store[position] = new_subarray
+  end
+
+
+
 
 
 

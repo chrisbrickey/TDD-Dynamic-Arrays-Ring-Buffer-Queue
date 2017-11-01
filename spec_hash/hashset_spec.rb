@@ -84,7 +84,7 @@ describe HashSet do
       desired_position = element.my_hash % 4
       subject.insert(element)
       subject.remove(element)
-      expect(subject.store[desired_position][0]).to eq([])
+      expect(subject.store[desired_position]).to eq([])
     end
 
     it "removes an element regardless of type" do
