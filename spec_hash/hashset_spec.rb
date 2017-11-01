@@ -38,6 +38,10 @@ describe HashSet do
 
     end
 
+    it "handles a large number of inputs" do
+      500.times { subject.insert(rand(1000)) }  #does not throw error is implicit in this test
+    end
+
     it "manages collisions; holds multiple elements inserted at the same position" do
       this_size = subject.size
 
@@ -104,15 +108,13 @@ describe HashSet do
 
     it "manages collisions; removes only the desired element and leaves others at the same position" do
       this_size = subject.size
-      position = nil
       el1 = "a"
-      el1_position = el1.my_hash % this_size
+      position = el1.my_hash % this_size
       el2 = nil
 
       ("b".."z").each do |letter|
         letter_position = letter.my_hash % this_size
-        if el1_position == letter_position
-          position = el1_position
+        if position == letter_position
           el2 = letter
           break
         end
@@ -123,6 +125,14 @@ describe HashSet do
       subject.remove(el1)
       expect(subject.include?(el1)).to be(false)
       expect(subject.include?(el2)).to be(true)
+    end
+
+    it "manages collisions; removes only one instance of the desired element and leaves other instances at the same position" do
+      element = "apple"
+      subject.insert(element)
+      subject.insert(element)
+      subject.remove(element)
+      expect(subject.include?(element)).to be(true)
     end
 
     it "raises error when element to be removed is not in the HashSet" do
