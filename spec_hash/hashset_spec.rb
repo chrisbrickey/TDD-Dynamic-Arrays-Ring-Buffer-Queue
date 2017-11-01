@@ -134,7 +134,11 @@ describe HashSet do
 
     it "raises error when element to be removed is not in the HashSet" do
       expect do
-        subject.remove(element)
+        subject.remove("a")
+      end.to raise_error("element does not exist")
+
+      expect do
+        subject.remove([])
       end.to raise_error("element does not exist")
     end
 
