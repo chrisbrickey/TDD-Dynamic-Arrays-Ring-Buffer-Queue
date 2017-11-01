@@ -1,14 +1,14 @@
-require "./lib_hash/hashset"
+require "./lib_hash/hashset_slow"
 require "./lib_hash/hashing"
 require "rspec/expectations"
 
-describe HashSet do
+describe HashSetSlow do
 
   before(:all) do
-    subject = HashSet.new
+    subject = HashSetSlow.new
   end
 
-  describe "HashSet#initialize" do
+  describe "HashSetSlow#initialize" do
 
     it "initializes to length of 4" do
       expect(subject.size).to eq(4)
@@ -16,7 +16,7 @@ describe HashSet do
 
   end #of initialize
 
-  describe "HashSet#insert" do
+  describe "HashSetSlow#insert" do
 
     it "inserts an element" do
       element = "a"
@@ -63,21 +63,10 @@ describe HashSet do
       expect(subject.include?(el2)).to be(true)
     end
 
-    xit "runs faster than linear time on average" do
-      # slow_subject = SlowDynamicArray.new
-      # start_time_for_slow_array = Time.now
-      # 5000.times { slow_subject.push(rand(10)) }
-      # elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-      #
-      # start_time_for_fast_array = Time.now
-      # 5000.times { subject.push(rand(10)) }
-      # elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-      #
-      # expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
-    end
   end #of insert
 
-  describe "HashSet#remove" do
+
+  describe "HashSetSlow#remove" do
 
     it "removes an element" do
       element = "a"
@@ -135,7 +124,7 @@ describe HashSet do
       expect(subject.include?(element)).to be(true)
     end
 
-    it "raises error when element to be removed is not in the HashSet" do
+    it "raises error when element to be removed is not in the HashSetSlow" do
       expect do
         subject.remove("a")
       end.to raise_error("element does not exist")
@@ -145,14 +134,10 @@ describe HashSet do
       end.to raise_error("element does not exist")
     end
 
-
-
-    xit "runs faster than linear time on average" do
-    end
-
   end #of remove
 
-  describe "HashSet#include?" do
+
+  describe "HashSetSlow#include?" do
 
     it "returns true if element is included" do
       element = "a"
@@ -171,11 +156,8 @@ describe HashSet do
       expect(subject.include?(element)).to eq(false)
     end
 
-    xit "runs faster than linear time on average" do
-    end
-
   end #of include?
 
 
 
-end # of HashSet
+end # of HashSetSlow
