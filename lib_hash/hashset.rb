@@ -17,13 +17,21 @@ class HashSet
   def remove(element)
     position = element.my_hash % @size
     new_subarray = []
+    found = false
+
     @store[position].each do |el|
       if el != element
         new_subarray << el
+      else
+        found = true
       end
     end
+
+    raise "element does not exist" if found == false
     @store[position] = new_subarray
   end
+
+
 
 
 
