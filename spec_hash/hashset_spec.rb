@@ -20,9 +20,8 @@ describe HashSet do
 
     it "inserts an element" do
       element = "a"
-      desired_position = element.my_hash % 4
       subject.insert(element)
-      expect(subject.store[desired_position][0]).to eq(element)
+      expect(subject.include?(element)).to be(true)
     end
 
     it "inserts an element regardless of type" do
@@ -33,11 +32,8 @@ describe HashSet do
       el8 = { "a" => [4, 5, 6], "b" => "hello" }
 
       [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
-        desired_position = el.my_hash % subject.size
         subject.insert(el)
-        expect(subject.store[desired_position].include?(el)).to be(true)
-
-        # p subject.store
+        expect(subject.include?(el)).to be(true)
       end
 
     end
@@ -59,8 +55,8 @@ describe HashSet do
 
       subject.insert(el1)
       subject.insert(el2)
-      expect(subject.store[position].include?(el1)).to be(true)
-      expect(subject.store[position].include?(el2)).to be(true)
+      expect(subject.include?(el1)).to be(true)
+      expect(subject.include?(el2)).to be(true)
     end
 
     xit "runs faster than linear time on average" do
@@ -81,10 +77,9 @@ describe HashSet do
 
     it "removes an element" do
       element = "a"
-      desired_position = element.my_hash % 4
       subject.insert(element)
       subject.remove(element)
-      expect(subject.store[desired_position]).to eq([])
+      expect(subject.include?(element)).to be(false)
     end
 
     it "removes an element regardless of type" do
@@ -96,15 +91,13 @@ describe HashSet do
 
       #inserting the elements
       [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
-        desired_position = el.my_hash % subject.size
         subject.insert(el)
       end
 
       #removing the elements
       [el1, el2, el3, el4, el5, el6, el7, el8].each do |el|
-        desired_position = el.my_hash % subject.size
         subject.remove(el)
-        expect(subject.store[desired_position].include?(el)).to be(false)
+        expect(subject.include?(el)).to be(false)
       end
 
     end
@@ -128,8 +121,8 @@ describe HashSet do
       subject.insert(el1)
       subject.insert(el2)
       subject.remove(el1)
-      expect(subject.store[position].include?(el1)).to be(false)
-      expect(subject.store[position].include?(el2)).to be(true)
+      expect(subject.include?(el1)).to be(false)
+      expect(subject.include?(el2)).to be(true)
     end
 
     it "raises error when element to be removed is not in the HashSet" do
