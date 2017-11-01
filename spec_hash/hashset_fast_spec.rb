@@ -56,17 +56,17 @@ describe HashSetFast do
       expect(subject.include?(el2)).to be(true)
     end
 
-    xit "runs faster than linear time on average" do
-      # slow_subject = SlowDynamicArray.new
-      # start_time_for_slow_array = Time.now
-      # 5000.times { slow_subject.push(rand(10)) }
-      # elapsed_time_for_slow_array = Time.now - start_time_for_slow_array
-      #
-      # start_time_for_fast_array = Time.now
-      # 5000.times { subject.push(rand(10)) }
-      # elapsed_time_for_fast_array = Time.now - start_time_for_fast_array
-      #
-      # expect(elapsed_time_for_fast_array).to be < (elapsed_time_for_slow_array / 100)
+    it "runs faster than linear time on average" do
+      slow_subject = HashSetSlow.new
+      slow_start_time = Time.now
+      5000.times { slow_subject.insert(rand(5000)) }
+      slow_elapsed_time = Time.now - slow_start_time
+
+      fast_start_time = Time.now
+      5000.times { subject.insert(rand(5000)) }
+      fast_elapsed_time = Time.now - fast_start_time
+
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
     end
   end #of insert
 
@@ -138,9 +138,19 @@ describe HashSetFast do
       end.to raise_error("element does not exist")
     end
 
+    it "runs faster than linear time on average" do
+      slow_subject = HashSetSlow.new
+      (1..5000).each { |n| slow_subject.insert(n) }
+      slow_start_time = Time.now
+      (1..5000).each { |n| slow_subject.remove(n) }
+      slow_elapsed_time = Time.now - slow_start_time
 
+      (1..5000).each { |n| subject.insert(n) }
+      fast_start_time = Time.now
+      (1..5000).each { |n| subject.remove(n) }
+      fast_elapsed_time = Time.now - fast_start_time
 
-    xit "runs faster than linear time on average" do
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
     end
 
   end #of remove
@@ -164,7 +174,19 @@ describe HashSetFast do
       expect(subject.include?(element)).to eq(false)
     end
 
-    xit "runs faster than linear time on average" do
+    it "runs faster than linear time on average" do
+      slow_subject = HashSetSlow.new
+      5000.times { slow_subject.insert(rand(5000)) }
+      slow_start_time = Time.now
+      (1..5000).each { |n| slow_subject.include?(n) }
+      slow_elapsed_time = Time.now - slow_start_time
+
+      5000.times { subject.insert(rand(5000)) }
+      fast_start_time = Time.now
+      (1..5000).each { |n| subject.include?(n) }
+      fast_elapsed_time = Time.now - fast_start_time
+
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
     end
 
   end #of include?
