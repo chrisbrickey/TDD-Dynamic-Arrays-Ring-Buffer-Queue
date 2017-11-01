@@ -1,7 +1,7 @@
 require_relative "hashing.rb"
 
 class HashSetSlow
-  attr_reader :size, :store
+  attr_reader :size
 
 
   def initialize

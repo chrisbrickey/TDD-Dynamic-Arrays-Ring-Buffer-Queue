@@ -9,14 +9,6 @@ describe HashSetFast do
     subject = HashSetFast.new
   end
 
-  describe "HashSetFast#initialize" do
-
-    it "initializes to length of 4" do
-      expect(subject.size).to eq(4)
-    end
-
-  end #of initialize
-
   describe "HashSetFast#insert" do
 
     it "inserts an element" do

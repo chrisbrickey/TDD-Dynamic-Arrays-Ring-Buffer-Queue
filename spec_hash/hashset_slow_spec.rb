@@ -8,14 +8,6 @@ describe HashSetSlow do
     subject = HashSetSlow.new
   end
 
-  describe "HashSetSlow#initialize" do
-
-    it "initializes to length of 4" do
-      expect(subject.size).to eq(4)
-    end
-
-  end #of initialize
-
   describe "HashSetSlow#insert" do
 
     it "inserts an element" do
