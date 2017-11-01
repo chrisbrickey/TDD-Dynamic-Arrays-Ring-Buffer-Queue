@@ -132,6 +132,12 @@ describe HashSet do
       expect(subject.store[position].include?(el2)).to be(true)
     end
 
+    it "raises error when element to be removed is not in the HashSet" do
+      expect do
+        subject.remove(element)
+      end.to raise_error("element does not exist")
+    end
+
 
 
     xit "runs faster than linear time on average" do
@@ -141,10 +147,21 @@ describe HashSet do
 
   describe "HashSet#include?" do
 
-    xit "returns true if element is included" do
+    it "returns true if element is included" do
+      element = "a"
+      subject.insert(element)
+      expect(subject.include?(element)).to eq(true)
     end
 
-    xit "returns false if element is not included" do
+    it "returns false if element is not included" do
+      expect(subject.include?("")).to eq(false)
+      expect(subject.include?([])).to eq(false)
+      expect(subject.include?({})).to eq(false)
+
+      element = "a"
+      subject.insert(element)
+      subject.remove(element)
+      expect(subject.include?(element)).to eq(false)
     end
 
     xit "runs faster than linear time on average" do
