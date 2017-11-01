@@ -20,12 +20,14 @@ class HashSet
     position = element.my_hash % @size
     new_subarray = []
     found = false
+    count = 0
 
     @store[position].each do |el|
-      if el != element
+      if (el != element) || count > 0
         new_subarray << el
       else
         found = true
+        count += 1
       end
     end
 
