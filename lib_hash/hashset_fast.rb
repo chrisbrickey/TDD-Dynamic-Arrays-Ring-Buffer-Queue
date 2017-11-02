@@ -13,7 +13,6 @@ class HashSetFast
 
 
   def insert(element)
-    # debugger
     resize if @count_of_items == @size
     @count_of_items += 1
     position = element.my_hash % @size
@@ -22,7 +21,6 @@ class HashSetFast
 
 
   def remove(element)
-    # debugger
     position = element.my_hash % @size
     new_subarray = []
     found = false
@@ -58,6 +56,7 @@ class HashSetFast
   def resize
     old_store = @store
     new_store = Array.new(@size * 2) {Array.new}
+    @size *= 2
     old_store.each do |subarray|
       subarray.each do |el|
         position = el.my_hash % @size
@@ -65,7 +64,7 @@ class HashSetFast
       end
     end
 
-    @size *= 2
+
     @store = new_store
   end
 
