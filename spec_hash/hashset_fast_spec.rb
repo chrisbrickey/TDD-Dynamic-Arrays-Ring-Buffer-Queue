@@ -66,7 +66,7 @@ describe HashSetFast do
       5000.times { subject.insert(rand(5000)) }
       fast_elapsed_time = Time.now - fast_start_time
 
-      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 2)
     end
   end #of insert
 
@@ -150,7 +150,7 @@ describe HashSetFast do
       (1..5000).each { |n| subject.remove(n) }
       fast_elapsed_time = Time.now - fast_start_time
 
-      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 2)
     end
 
   end #of remove
@@ -186,7 +186,7 @@ describe HashSetFast do
       (1..5000).each { |n| subject.include?(n) }
       fast_elapsed_time = Time.now - fast_start_time
 
-      expect(fast_elapsed_time).to be < (slow_elapsed_time / 100)
+      expect(fast_elapsed_time).to be < (slow_elapsed_time / 2)
     end
 
   end #of include?
