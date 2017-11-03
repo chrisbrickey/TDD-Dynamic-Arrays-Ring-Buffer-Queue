@@ -7,9 +7,16 @@ describe Node do
     subject = Node.new
   end
 
-  describe "Node#initialize" do
+  describe "Node#getter/setter" do
 
-    xit "does something" do
+    it "allows access and assignment to value, left child, and right child" do
+      subject.value = 16
+      subject.left = 17
+      subject.right = 18
+      
+      expect(subject.value).to eq(16)
+      expect(subject.left).to eq(17)
+      expect(subject.right).to eq(18)
     end
 
   end
