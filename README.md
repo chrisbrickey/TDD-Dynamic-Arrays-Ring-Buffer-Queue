@@ -3,8 +3,8 @@ This is a study in the underlying behavior of high-level arrays (e.g. Python lis
 
 ## To run tests from command line
 *All tests cannot be run together due to multiple spec and lib directories*
-- All tests within a category: `bundle exec rspec spec_array/`
-- Specific classes: `bundle exec rspec spec/filename.ext`
+- All tests within a category: e.g. `bundle exec rspec spec_array/`
+- Specific classes: e.g. `bundle exec rspec spec_array/filename.ext`
 
 ## Dependencies (RSpec 3.6)
 - ruby 2.4.0
