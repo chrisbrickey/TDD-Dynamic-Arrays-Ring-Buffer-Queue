@@ -47,7 +47,7 @@ describe BinarySearchTree do
       expect(subject.root.value).to eq(10)
 
       first_left = subject.root.left
-      first_right = subjectroot.right
+      first_right = subject.root.right
       expect(first_left.value).to eq(8)
       expect(first_right.value).to eq(12)
 
