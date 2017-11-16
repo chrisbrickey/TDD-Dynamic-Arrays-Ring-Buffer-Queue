@@ -1,2 +1,2 @@
-require "./lib_bst/kth_largest"
+require "./lib_bst/kth_smallest"
 require "rspec/expectations"
