@@ -34,15 +34,15 @@ describe BinarySearchTree do
     end
 
     it "inserts in the appropriate place given a large tree" do
-      [10, 8, 12, 11, 6, 7, 14, 7, 13].each { |el| subject.insert(el) }
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
       #    expected structure:
       #         10
       #       /    \
       #      8      12
       #     / \    /  \
-      #    6  7   11  14
+      #    6  9   11  14
       #        \      /
-      #        7    13
+      #        9    13
 
       expect(subject.root.value).to eq(10)
 
@@ -52,8 +52,8 @@ describe BinarySearchTree do
       expect(first_right.value).to eq(12)
 
       expect(first_left.left.value).to eq(6)
-      expect(first_left.right.value).to eq(7)
-      expect(first_left.right.right.value).to eq(7)
+      expect(first_left.right.value).to eq(9)
+      expect(first_left.right.right.value).to eq(9)
       expect(first_left.right.left).to eq(nil)
 
       expect(first_right.left.value).to eq(11)
