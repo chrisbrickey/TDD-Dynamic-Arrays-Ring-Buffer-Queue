@@ -29,6 +29,10 @@ class BinarySearchTree
       end
     end
 
+  end
+
+  def find(val)
+
 
   end
 
