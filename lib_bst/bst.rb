@@ -2,16 +2,13 @@ require_relative 'node'
 
 class BinarySearchTree
 
-  attr_accessor :root, :length #delete length after test are developed
+  attr_accessor :root
 
   def initialize
-    @length = 0 #for test development ONLY, delete later
     @root = nil
   end
 
   def insert(el, tree_node=@root)
-
-    # return BSTNode.new(value) if tree_node.nil?
 
     if (@root.nil?) && (tree_node == @root)
       @root = Node.new(el)
@@ -24,7 +21,7 @@ class BinarySearchTree
       else
         tree_node.left = Node.new(el)
       end
-    else # new_node.value >= tree_node.value
+    else # el >= tree_node.value
       if tree_node.right
         insert(el, tree_node.right)
       else
