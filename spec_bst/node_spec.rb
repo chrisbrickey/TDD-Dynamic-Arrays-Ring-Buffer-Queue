@@ -3,14 +3,11 @@ require "rspec/expectations"
 
 describe Node do
 
-  before(:all) do
-    subject = Node.new
-  end
-
   describe "Node#initialize" do
 
-    it "initializes all instance variables to nil" do
-      expect(subject.value).to eq(nil)
+    it "initializes left, right, and parent instance variables to nil" do
+      subject = Node.new(10)
+      expect(subject.parent).to eq(nil)
       expect(subject.left).to eq(nil)
       expect(subject.right).to eq(nil)
     end
@@ -19,14 +16,29 @@ describe Node do
 
   describe "Node#getter/setter" do
 
-    it "allows access and assignment to value, left child, and right child" do
-      subject.value = 16
-      subject.left = 17
-      subject.right = 18
+    it "allows getter access to value attribute" do
+      subject = Node.new(10)
+      expect(subject.value).to eq(10)
+    end
 
-      expect(subject.value).to eq(16)
-      expect(subject.left).to eq(17)
-      expect(subject.right).to eq(18)
+    xit "does not allow setter access (read only) to value attribute" do
+
+    end
+
+    it "allows getter and setter access to parent, left child, and right child attributes" do
+      subject = Node.new(10)
+
+      the_parent = Node.new(2)
+      lefty = Node.new(8)
+      righty = Node.new(12)
+
+      subject.parent = the_parent
+      subject.left = lefty
+      subject.right = righty
+
+      expect(subject.parent.value).to eq(2)
+      expect(subject.left.value).to eq(8)
+      expect(subject.right.value).to eq(12)
     end
 
   end
