@@ -64,4 +64,25 @@ describe BinarySearchTree do
 
   end
 
-end #of Node
+  describe "BinarySearchTree#find" do
+
+    it "returns nil when value not present in tree" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      expect(subject.find(7)).to eq(nil)
+      expect(subject.find(0)).to eq(nil)
+      expect(subject.find(100)).to eq(nil)
+    end
+
+    it "returns the target node when value is present in tree" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      expect(subject.find(10).value).to eq(10)
+      expect(subject.find(8).value).to eq(8)
+      expect(subject.find(11).value).to eq(11)
+      expect(subject.find(9).value).to eq(9)
+    end
+
+
+
+  end
+
+end #of BinarySearchTree
