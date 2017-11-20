@@ -75,13 +75,70 @@ describe BinarySearchTree do
 
     it "returns the target node when value is present in tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      subject.delete(7)
+      subject.delete(0)
+      subject.delete(100)
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      8      12
+      #     / \    /  \
+      #    6  9   11  14
+      #        \      /
+      #        9    13
+
+      expect(subject.root.value).to eq(10)
+
+      first_left = subject.root.left
+      first_right = subject.root.right
+      expect(first_left.value).to eq(8)
+      expect(first_right.value).to eq(12)
+
+      expect(first_left.left.value).to eq(6)
+      expect(first_left.right.value).to eq(9)
+      expect(first_left.right.right.value).to eq(9)
+      expect(first_left.right.left).to eq(nil)
+
+      expect(first_right.left.value).to eq(11)
+      expect(first_right.right.value).to eq(14)
+      expect(first_right.right.left.value).to eq(13)
+      expect(first_right.right.right).to eq(nil)
+    end
+
+  end
+
+  describe "BinarySearchTree#delete" do
+
+    it "when value is not present in tree, it returns nil" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      expect(subject.delete(7)).to eq(nil)
+      expect(subject.delete(0)).to eq(nil)
+      expect(subject.delete(100)).to eq(nil)
+    end
+
+    it "when value is not present in tree, it does not alter the structure of the tree" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      expect(subject.delete(7)).to eq(nil)
+      expect(subject.delete(0)).to eq(nil)
+      expect(subject.delete(100)).to eq(nil)
+    end
+
+    it "when value is present in tree, it returns the target node" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
       expect(subject.find(10).value).to eq(10)
       expect(subject.find(8).value).to eq(8)
       expect(subject.find(11).value).to eq(11)
       expect(subject.find(9).value).to eq(9)
     end
 
-
+    it "when value is present in tree, it restructures the tree correctly" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
+      expect(subject.find(10).value).to eq(10)
+      expect(subject.find(8).value).to eq(8)
+      expect(subject.find(11).value).to eq(11)
+      expect(subject.find(9).value).to eq(9)
+    end
 
   end
 
