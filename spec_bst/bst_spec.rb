@@ -150,8 +150,8 @@ describe BinarySearchTree do
       #      8      12
       #     / \    /  \
       #    6  9   11  14
-      #        \      /
-      #        9    13
+      #        \      / \
+      #        9    13   51
 
       expect(subject.root.value).to eq(10)
 
@@ -193,7 +193,7 @@ describe BinarySearchTree do
       #       \    /  \
       #       9   11  14
       #        \      / \
-      #        9    13   15
+      #        9    13   51
 
       expect(subject.root.value).to eq(10)
 
@@ -218,7 +218,7 @@ describe BinarySearchTree do
 
     it "when the target is a right leaf, it restructures the tree correctly" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
-      subject.delete(13)
+      subject.delete(51)
 
 
       #    expected structure:
