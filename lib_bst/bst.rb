@@ -19,13 +19,17 @@ class BinarySearchTree
       if tree_node.left
         insert(el, tree_node.left)
       else
-        tree_node.left = Node.new(el)
+        new_node = Node.new(el)
+        new_node.parent = tree_node
+        tree_node.left = new_node
       end
     else # el >= tree_node.value
       if tree_node.right
         insert(el, tree_node.right)
       else
-        tree_node.right = Node.new(el)
+        new_node = Node.new(el)
+        new_node.parent = tree_node
+        tree_node.right = new_node
       end
     end
 
@@ -48,6 +52,28 @@ class BinarySearchTree
     the_node_to_delete = find(target, top_node)
     return nil unless the_node_to_delete
 
+
+    the_parent = the_node_to_delete.parent
+    side_for_deleting = the_parent.left == the_node_to_delete ? "left" : "right"
+
+
+    if (the_node_to_delete.left.nil?) && (the_node_to_delete.right.nil?)
+      if side_for_deleting == "left"
+        the_parent.left = nil
+      else
+        the_parent.right = nil
+      end
+    elsif the_node_to_delete.left.nil?
+      #pull right subtree up to replace the_node_to_delete
+    elsif the_node_to_delete.right.nil?
+      #pull left subtree up to replace the_node_to_delete
+    else # node has two children
+      #find the max of the left sub_tree
+    end
+
+
+
+    the_node_to_delete.parent = nil
     the_node_to_delete
   end
 
