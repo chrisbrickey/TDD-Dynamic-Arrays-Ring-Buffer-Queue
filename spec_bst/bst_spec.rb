@@ -167,15 +167,13 @@ describe BinarySearchTree do
     it "when the target is a left leaf, it restructures the tree correctly" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
       subject.delete(6)
-      subject.delete(13)
-
 
       #    expected structure:
       #         10
       #       /    \
       #      8      12
-      #     / \    /  \
-      #    6  9   11  14
+      #       \    /  \
+      #       9   11  14
       #        \      / \
       #        9    13   15
 
@@ -186,7 +184,7 @@ describe BinarySearchTree do
       expect(first_left.value).to eq(8)
       expect(first_right.value).to eq(12)
 
-      expect(first_left.left.value).to eq(6)
+      expect(first_left.left).to eq(nil)
       expect(first_left.right.value).to eq(9)
       expect(first_left.right.right.value).to eq(9)
       expect(first_left.right.left).to eq(nil)
@@ -212,7 +210,7 @@ describe BinarySearchTree do
       #     / \    /  \
       #    6  9   11  14
       #        \      /
-      #        9    13
+      #        9     13
 
       expect(subject.root.value).to eq(10)
 
@@ -229,10 +227,7 @@ describe BinarySearchTree do
       expect(first_right.left.value).to eq(11)
       expect(first_right.right.value).to eq(14)
       expect(first_right.right.left.value).to eq(13)
-      expect(first_right.right.right.value).to eq(51)
-
-      expect(first_right.right.right.left).to eq(nil)
-      expect(first_right.right.right.right).to eq(nil)
+      expect(first_right.right.right).to eq(nil)
 
     end
 
