@@ -31,16 +31,24 @@ class BinarySearchTree
 
   end
 
-  def find(val)
+  def find(target, top_node=@root)
+    return nil if top_node.nil?
 
+    if top_node.value == target
+      return top_node
+    elsif target < top_node.value
+      return find(target, top_node.left)
+    else
+      return find(target, top_node.right)
+    end
 
   end
 
-  def print_tree
-    print "root: #{@root.value}\n"
-    print "l1: #{@root.left.value}   #{@root.right.value}\n"
-    print "l2: #{@root.left.left.value}  #{@root.left.right.value} #{@root.right.left.value}  #{@root.right.right.value}\n"
-  end
+  # def print_tree
+  #   print "root: #{@root.value}\n"
+  #   print "l1: #{@root.left.value}   #{@root.right.value}\n"
+  #   print "l2: #{@root.left.left.value}  #{@root.left.right.value} #{@root.right.left.value}  #{@root.right.right.value}\n"
+  # end
 
 
 
