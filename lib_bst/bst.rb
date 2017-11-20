@@ -44,6 +44,10 @@ class BinarySearchTree
 
   end
 
+  def delete(target, top_node=@root)
+    nil
+  end
+
   # def print_tree
   #   print "root: #{@root.value}\n"
   #   print "l1: #{@root.left.value}   #{@root.right.value}\n"
