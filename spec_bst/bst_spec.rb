@@ -33,7 +33,7 @@ describe BinarySearchTree do
       expect(subject.root.right.value).to eq(10)
     end
 
-    it "inserts in the appropriate place given a large tree" do
+    it "constructs the appropriate left/right relationships for a large tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
       #    expected structure:
       #         10
@@ -63,6 +63,34 @@ describe BinarySearchTree do
 
       expect(first_right.right.right.left).to eq(nil)
       expect(first_right.right.right.right).to eq(nil)
+    end
+
+    it "constructs the appropriate parent relationships for a large tree" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
+      #    expected structure:
+      #         10
+      #       /    \
+      #      8      12
+      #     / \    /  \
+      #    6  9   11  14
+      #        \      / \
+      #        9    13   51
+
+      expect(subject.root.parent).to eq(nil)
+
+      first_left = subject.root.left #8
+      first_right = subject.root.right #12
+      expect(first_left.parent.value).to eq(10)
+      expect(first_right.parent.value).to eq(10)
+
+      expect(first_left.left.parent.value).to eq(8)
+      expect(first_left.right.parent.value).to eq(8)
+      expect(first_left.right.right.parent.value).to eq(9)
+
+      expect(first_right.left.parent.value).to eq(12)
+      expect(first_right.right.parent.value).to eq(12)
+      expect(first_right.right.left.parent.value).to eq(14)
+      expect(first_right.right.right.parent.value).to eq(14)
     end
 
   end
