@@ -45,7 +45,10 @@ class BinarySearchTree
   end
 
   def delete(target, top_node=@root)
-    nil
+    the_node_to_delete = find(target, top_node)
+    return nil unless the_node_to_delete
+
+    the_node_to_delete
   end
 
   # def print_tree
