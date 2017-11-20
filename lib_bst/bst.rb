@@ -50,19 +50,29 @@ class BinarySearchTree
 
   def delete(target, top_node=@root)
     the_node_to_delete = find(target, top_node)
-    return nil unless the_node_to_delete
+    return nil if the_node_to_delete.nil?
 
+    the_parent = the_node_to_delete.parent #might be nil if dealing with root
 
-    the_parent = the_node_to_delete.parent
-    side_for_deleting = the_parent.left == the_node_to_delete ? "left" : "right"
-
+    what_we_are_deleting = nil
+    if the_parent.nil?
+      what_we_are_deleting = "root"
+    elsif the_node_to_delete.value < the_parent.value
+      what_we_are_deleting = "left"
+    else
+      what_we_are_deleting = "right"
+    end
 
     if (the_node_to_delete.left.nil?) && (the_node_to_delete.right.nil?)
-      if side_for_deleting == "left"
+      case what_we_are_deleting
+      when "left"
+        the_node_to_delete.parent = nil
         the_parent.left = nil
-      else
+      when "right"
+        the_node_to_delete.parent = nil
         the_parent.right = nil
       end
+
     elsif the_node_to_delete.left.nil?
       #pull right subtree up to replace the_node_to_delete
     elsif the_node_to_delete.right.nil?
@@ -73,7 +83,7 @@ class BinarySearchTree
 
 
 
-    the_node_to_delete.parent = nil
+
     the_node_to_delete
   end
 
