@@ -4,9 +4,11 @@ class BinarySearchTree
 
   attr_accessor :root
 
+
   def initialize
     @root = nil
   end
+
 
   def insert(el, tree_node=@root)
 
@@ -35,6 +37,7 @@ class BinarySearchTree
 
   end
 
+
   def find(target, top_node=@root)
     return nil if top_node.nil?
 
@@ -47,6 +50,7 @@ class BinarySearchTree
     end
 
   end
+
 
   def delete(target, top_node=@root)
     the_node_to_delete = find(target, top_node) #grabs the target but gives no info on location within tree and relative to its parent
@@ -133,13 +137,6 @@ class BinarySearchTree
     the_node_to_delete.parent = nil
     the_node_to_delete
   end
-
-  # def print_tree
-  #   print "root: #{@root.value}\n"
-  #   print "l1: #{@root.left.value}   #{@root.right.value}\n"
-  #   print "l2: #{@root.left.left.value}  #{@root.left.right.value} #{@root.right.left.value}  #{@root.right.right.value}\n"
-  # end
-
 
 
 end
