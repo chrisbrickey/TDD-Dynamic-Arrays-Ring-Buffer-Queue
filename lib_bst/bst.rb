@@ -74,32 +74,20 @@ class BinarySearchTree
         the_parent.right = nil
       end
 
-    #when target has one child on the right
-    elsif the_node_to_delete.left.nil?
-      case what_we_are_deleting
-      when "root"
-        @root = the_node_to_delete.right
-        the_node_to_delete.right.parent = nil
-      when "left"
-        the_parent.left = the_node_to_delete.right
-        the_parent.left.parent = the_parent
-      when "right"
-        the_parent.right = the_node_to_delete.right
-        the_parent.right.parent = the_parent
-      end
+      #when target has one child
+    elsif the_node_to_delete.left.nil? || the_node_to_delete.right.nil?
+      replacement_node = the_node_to_delete.left.nil? ? the_node_to_delete.right : the_node_to_delete.left
 
-    #target has one child on the left
-    elsif the_node_to_delete.right.nil?
       case what_we_are_deleting
       when "root"
-        @root = the_node_to_delete.left
-        the_node_to_delete.left.parent = nil
+        @root = replacement_node
+        replacement_node.parent = nil
       when "left"
-        the_parent.left = the_node_to_delete.left
-        the_parent.left.parent = the_parent
+        the_parent.left = replacement_node
+        replacement_node.parent = the_parent
       when "right"
-        the_parent.right = the_node_to_delete.left
-        the_parent.right.parent = the_parent
+        the_parent.right = replacement_node
+        replacement_node.parent = the_parent
       end
 
     #target has two children
