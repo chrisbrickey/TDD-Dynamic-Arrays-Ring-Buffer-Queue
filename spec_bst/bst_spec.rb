@@ -318,6 +318,38 @@ describe BinarySearchTree do
 
     end
 
+    it "when the target is the root and it has only one child, it restructures the tree correctly" do
+      [10, 12, 14, 13, 51].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #           \
+      #            12
+      #             \
+      #             14
+      #            / \
+      #          13  51
+
+      subject.delete(10)
+
+      #    expected structure:
+      #            12
+      #             \
+      #             14
+      #            / \
+      #          13  51
+
+      expect(subject.root.value).to eq(12)
+      expect(subject.root.parent).to eq(nil)
+
+      expect(subject.root.left).to eq(nil)
+      expect(subject.root.right.value).to eq(14)
+
+      expect(subject.root.right.left.value).to eq(13)
+      expect(subject.root.right.right.value).to eq(51)
+
+    end
+
   end
 
 end #of BinarySearchTree
