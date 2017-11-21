@@ -97,6 +97,7 @@ class BinarySearchTree
       right_child.parent = replacement_node
       replacement_node.right = right_child
 
+
     # target has two children and the replacement node is NOT a direct child of the_node_to_delete
     #  replace with max of left subtree (replacement )
     else
@@ -112,10 +113,12 @@ class BinarySearchTree
         replacements_left_child.parent = replacement_node.parent
       end
 
-      #detach and reassign both subtrees
+      #detach and reassign the left subtree
       left_child = the_node_to_delete.left
       left_child.parent = replacement_node
       replacement_node.left = left_child
+
+      #detach and reattach the right subtree
       right_child = the_node_to_delete.right
       right_child.parent = replacement_node
       replacement_node.right = right_child
