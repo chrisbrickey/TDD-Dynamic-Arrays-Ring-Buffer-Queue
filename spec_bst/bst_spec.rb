@@ -351,54 +351,73 @@ describe BinarySearchTree do
     end
 
     it "when the target has two children, it restructures the tree correctly" do
-      [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
+      [10, 8, 14, 6, 9, 12, 16, 7, 6.5, 4, 15, 13, 11, 12.5].each { |el| subject.insert(el) }
 
       #    expected structure:
-      #         10
-      #       /    \
-      #      8      12
-      #     / \    /  \
-      #    6  9   11  14
-      #        \      / \
-      #        9     13  51
+      #          10
+      #       /       \
+      #      8         14
+      #     / \      /     \
+      #    6  9     12      16
+      #   / \      / \      /
+      #  4   7    11  13  15
+      #     /         /
+      #    6.5      12.5
 
       subject.delete(8)
 
       #    expected structure:
-      #         10
-      #       /    \
-      #      9      12
-      #     / \    /  \
-      #    6  9   11  14
-      #               / \
-      #             13  51
+      #          10
+      #       /       \
+      #      7          14
+      #    /  \       /   \
+      #   6   9      12      16
+      #  / \        / \     /
+      # 4   6.5    11  13  15
+      #                /
+      #              12.5
 
       expect(subject.root.value).to eq(10)
-      expect(subject.root.left.value).to eq(9)
+      expect(subject.root.left.value).to eq(7)
       expect(subject.root.left.parent.value).to eq(10)
 
       expect(subject.root.left.left.value).to eq(6)
+      expect(subject.root.left.left.parent.value).to eq(7)
       expect(subject.root.left.right.value).to eq(9)
-      expect(subject.root.left.right.right).to eq(nil)
+      expect(subject.root.left.right.parent.value).to eq(7)
 
-      subject.delete(12)
+      expect(subject.root.left.right.right).to eq(nil)
+      expect(subject.root.left.left.left.value).to eq(4)
+      expect(subject.root.left.left.right.value).to eq(6.5)
+      expect(subject.root.left.left.right.left).to eq(nil)
+      expect(subject.root.left.left.right.right).to eq(nil)
+
+
+      subject.delete(14)
 
       #    expected structure:
-      #         10
-      #       /    \
-      #      9      11
-      #     / \      \
-      #    6  9       14
-      #               / \
-      #             13  51
+      #           10
+      #       /       \
+      #      7         13.5
+      #     / \       /     \
+      #    6  9      12      16
+      #   / \       /  \     /
+      #  4  6.5    11  13    15
 
-      expect(subject.root.right.value).to eq(11)
+      expect(subject.root.right.value).to eq(13.5)
       expect(subject.root.right.parent.value).to eq(10)
 
-      expect(subject.root.right.left).to eq(nil)
-      expect(subject.root.right.right.value).to eq(14)
-      expect(subject.root.right.right.left.value).to eq(13)
-      expect(subject.root.right.right.right.value).to eq(51)
+      expect(subject.root.right.left.value).to eq(12)
+      expect(subject.root.right.left.parent.value).to eq(13.5)
+      expect(subject.root.right.right.value).to eq(16)
+      expect(subject.root.right.right.parent.value).to eq(13.5)
+
+      expect(subject.root.right.left.left.value).to eq(11)
+      expect(subject.root.right.left.right.value).to eq(13)
+      expect(subject.root.right.left.right.left).to eq(nil)
+
+      expect(subject.root.right.right.right).to eq(nil)
+      expect(subject.root.right.right.left.value).to eq(15)
 
     end
 
