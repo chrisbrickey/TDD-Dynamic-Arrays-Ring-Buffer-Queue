@@ -9,11 +9,13 @@ describe BinarySearchTree do
 
   describe "BinarySearchTree#insert" do
 
+
     it "inserts at the root if tree is empty" do
       expect(subject.root).to eq(nil)
       subject.insert(10)
       expect(subject.root.value).to eq(10)
     end
+
 
     it "inserts to left of root if value is less than root" do
         subject.insert(10)
@@ -21,17 +23,20 @@ describe BinarySearchTree do
         expect(subject.root.left.value).to eq(8)
     end
 
+
     it "inserts to right of root if value is greater than the root" do
       subject.insert(10)
       subject.insert(12)
       expect(subject.root.right.value).to eq(12)
     end
 
+
     it "inserts to right of root if value is equal to the root" do
       subject.insert(10)
       subject.insert(10)
       expect(subject.root.right.value).to eq(10)
     end
+
 
     it "constructs the appropriate left/right relationships for a large tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
@@ -65,6 +70,7 @@ describe BinarySearchTree do
       expect(first_right.right.right.right).to eq(nil)
     end
 
+
     it "constructs the appropriate parent relationships for a large tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
       #    expected structure:
@@ -95,7 +101,9 @@ describe BinarySearchTree do
 
   end
 
+
   describe "BinarySearchTree#find" do
+
 
     it "returns nil when value not present in tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
@@ -103,6 +111,7 @@ describe BinarySearchTree do
       expect(subject.find(0)).to eq(nil)
       expect(subject.find(100)).to eq(nil)
     end
+
 
     it "returns the target node when value is present in tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
@@ -129,6 +138,7 @@ describe BinarySearchTree do
 
   end
 
+
   describe "BinarySearchTree#delete" do
 
     it "when value is not present in tree, it returns nil" do
@@ -137,6 +147,7 @@ describe BinarySearchTree do
       expect(subject.delete(0)).to eq(nil)
       expect(subject.delete(100)).to eq(nil)
     end
+
 
     it "when value is not present in tree, it does not alter the structure of the tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
@@ -174,6 +185,7 @@ describe BinarySearchTree do
       expect(first_right.right.right.right).to eq(nil)
     end
 
+
     it "when value is present in tree, it returns the target node" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13].each { |el| subject.insert(el) }
       expect(subject.delete(10).value).to eq(10)
@@ -181,6 +193,7 @@ describe BinarySearchTree do
       expect(subject.delete(11).value).to eq(11)
       expect(subject.delete(9).value).to eq(9)
     end
+
 
     it "when the target is a left leaf, it restructures the tree correctly" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
@@ -216,6 +229,7 @@ describe BinarySearchTree do
       expect(first_right.right.right.right).to eq(nil)
     end
 
+
     it "when the target is a right leaf, it restructures the tree correctly" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
       subject.delete(51)
@@ -246,8 +260,8 @@ describe BinarySearchTree do
       expect(first_right.right.value).to eq(14)
       expect(first_right.right.left.value).to eq(13)
       expect(first_right.right.right).to eq(nil)
-
     end
+
 
     it "when the target has only one child, it restructures the tree correctly" do
       [10, 8, 12, 6, 7, 14, 13, 51].each { |el| subject.insert(el) }
@@ -313,10 +327,8 @@ describe BinarySearchTree do
       expect(first_right.right.value).to eq(51)
       expect(first_right.right.left).to eq(nil)
       expect(first_right.right.right).to eq(nil)
-
-
-
     end
+
 
     it "when the target is the root and it has only one child, it restructures the tree correctly" do
       [10, 12, 14, 13, 51].each { |el| subject.insert(el) }
@@ -347,8 +359,8 @@ describe BinarySearchTree do
 
       expect(subject.root.right.left.value).to eq(13)
       expect(subject.root.right.right.value).to eq(51)
-
     end
+
 
     it "when the target has two children, it restructures the tree correctly" do
       [10, 8, 14, 6, 9, 12, 16, 7, 6.5, 4, 15, 13, 11, 12.5].each { |el| subject.insert(el) }
