@@ -49,11 +49,11 @@ class BinarySearchTree
   end
 
   def delete(target, top_node=@root)
-    the_node_to_delete = find(target, top_node)
+    the_node_to_delete = find(target, top_node) #grabs the target but gives no info on location within tree and relative to its parent
     return nil if the_node_to_delete.nil?
 
-    the_parent = the_node_to_delete.parent #might be nil if dealing with root
-
+    #find where in the tree the target is
+    the_parent = the_node_to_delete.parent
     what_we_are_deleting = nil
     if the_parent.nil?
       what_we_are_deleting = "root"
@@ -63,7 +63,7 @@ class BinarySearchTree
       what_we_are_deleting = "right"
     end
 
-    #target has no children
+    # target has no children so remove from tree and return early
     if (the_node_to_delete.left.nil?) && (the_node_to_delete.right.nil?)
       case what_we_are_deleting
       when "root" #the root was the only node in the tree
@@ -74,29 +74,62 @@ class BinarySearchTree
         the_parent.right = nil
       end
 
-      #when target has one child
-    elsif the_node_to_delete.left.nil? || the_node_to_delete.right.nil?
-      replacement_node = the_node_to_delete.left.nil? ? the_node_to_delete.right : the_node_to_delete.left
-
-      case what_we_are_deleting
-      when "root"
-        @root = replacement_node
-        replacement_node.parent = nil
-      when "left"
-        the_parent.left = replacement_node
-        replacement_node.parent = the_parent
-      when "right"
-        the_parent.right = replacement_node
-        replacement_node.parent = the_parent
-      end
-
-    #target has two children
-    else
-      #find the max of the left sub_tree
+      the_node_to_delete.parent = nil
+      return the_node_to_delete
     end
 
 
+    # target has one child
+    if the_node_to_delete.left.nil? || the_node_to_delete.right.nil?
+      replacement_node = the_node_to_delete.left.nil? ? the_node_to_delete.right : the_node_to_delete.left
 
+    # target has two children and the replacement node is a direct child of target (no sibling)
+    # can shift the left subtree up to replace without dismantelling any of the replacement's children
+    elsif the_node_to_delete.left.right.nil?
+      replacement_node = the_node_to_delete.left
+
+      #detach and reattach the right subtree
+      right_child = the_node_to_delete.right
+      right_child.parent = replacement_node
+      replacement_node.right = right_child
+
+    # target has two children and the replacement node is NOT a direct child of the_node_to_delete
+    #  replace with max of left subtree (replacement )
+    else
+      replacement_node = the_node_to_delete.left
+      until replacement_node.right.nil?
+        replacement_node = replacement_node.right
+      end
+
+      # if replacement node has a child, disconnect and reconnect to replacement's parent on right side
+      replacements_left_child = replacement_node.left
+      if replacements_left_child #...is not nil
+        replacement_node.parent.right = replacements_left_child
+        replacements_left_child.parent = replacement_node.parent
+      end
+
+      #detach and reassign parents for both subtrees
+      left_child = the_node_to_delete.left
+      left_child.parent = replacement_node
+      right_child = the_node_to_delete.right
+      right_child.parent = replacement_node
+    end
+
+
+    case what_we_are_deleting
+    when "root"
+      @root = replacement_node
+      replacement_node.parent = nil
+    when "left"
+      the_parent.left = replacement_node
+      replacement_node.parent = the_parent
+    when "right"
+      the_parent.right = replacement_node
+      replacement_node.parent = the_parent
+    end
+
+    the_node_to_delete.left = nil
+    the_node_to_delete.right = nil
     the_node_to_delete.parent = nil
     the_node_to_delete
   end
