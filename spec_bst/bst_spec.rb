@@ -431,7 +431,7 @@ describe BinarySearchTree do
       expect(subject.root.left.value).to eq(7)
       expect(subject.root.left.parent.value).to eq(10)
 
-      expect(subject.root.left.left.value).to eq(6)
+      expect(subject.root.left.left.value).to eq(6)  #where we are failing
       expect(subject.root.left.left.parent.value).to eq(7)
       expect(subject.root.left.right.value).to eq(9)
       expect(subject.root.left.right.parent.value).to eq(7)
@@ -447,23 +447,23 @@ describe BinarySearchTree do
 
       #    expected structure:
       #           10
-      #       /       \
-      #      7         13.5
-      #     / \       /     \
-      #    6  9      12      16
-      #   / \       /  \     /
-      #  4  6.5    11  13    15
+      #       /        \
+      #      7           13
+      #     / \       /      \
+      #    6  9      12        16
+      #   / \       /  \      /
+      #  4  6.5    11  12.5  15
 
-      expect(subject.root.right.value).to eq(13.5)
+      expect(subject.root.right.value).to eq(13)
       expect(subject.root.right.parent.value).to eq(10)
 
       expect(subject.root.right.left.value).to eq(12)
-      expect(subject.root.right.left.parent.value).to eq(13.5)
+      expect(subject.root.right.left.parent.value).to eq(13)
       expect(subject.root.right.right.value).to eq(16)
-      expect(subject.root.right.right.parent.value).to eq(13.5)
+      expect(subject.root.right.right.parent.value).to eq(13)
 
       expect(subject.root.right.left.left.value).to eq(11)
-      expect(subject.root.right.left.right.value).to eq(13)
+      expect(subject.root.right.left.right.value).to eq(12.5)
       expect(subject.root.right.left.right.left).to eq(nil)
 
       expect(subject.root.right.right.right).to eq(nil)
