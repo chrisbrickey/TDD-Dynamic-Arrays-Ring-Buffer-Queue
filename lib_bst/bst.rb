@@ -100,22 +100,14 @@ class BinarySearchTree
     # target has two children and the replacement node is NOT a direct child of the_node_to_delete
     #  replace with max of left subtree (replacement )
     else
-      # print "in the correct else statement\n"
-      # print "what we want to delete: #{the_node_to_delete.value}\n" #8
-      # print "to the left of what we need to delete: #{the_node_to_delete.left.value}\n" #6
       replacement_node = the_node_to_delete.left #6
       until replacement_node.right.nil?
         replacement_node = replacement_node.right
       end
 
-      # print "the replacement node: #{replacement_node.value}\n" #7
-
       # if replacement node has a child, disconnect and reconnect to replacement's parent on right side
       replacements_left_child = replacement_node.left
       if replacements_left_child #...is not nil
-        # print "\ninside the I HAVE CHILDREN LOOP\n"
-        # print "replacement's parent: #{replacement_node.parent.value}\n" #6
-        # print "replacement's child: #{replacement_node.left.value}\n" #6.5
         replacement_node.parent.right = replacements_left_child
         replacements_left_child.parent = replacement_node.parent
       end
@@ -140,9 +132,6 @@ class BinarySearchTree
       the_parent.right = replacement_node
       replacement_node.parent = the_parent
     end
-
-    # print "\nthe real parent: #{the_parent.value}\n" #10
-    # print "the real parent's children: #{the_parent.left.value}   #{the_parent.right.value}\n" #7 #14
 
     the_node_to_delete.left = nil
     the_node_to_delete.right = nil
