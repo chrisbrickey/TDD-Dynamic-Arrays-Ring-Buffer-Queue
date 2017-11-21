@@ -472,47 +472,43 @@ describe BinarySearchTree do
     end
 
     it "when the target is the root and it has two children, it restructures the tree correctly" do
-      [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
+      [10, 6, 12, 4, 8, 7, 11, 14].each { |el| subject.insert(el) }
 
       #    expected structure:
       #         10
       #       /    \
-      #      8      12
+      #      6      12
       #     / \    /  \
-      #    6  9   11  14
-      #        \      / \
-      #        9     13  51
+      #    4   8  11  14
+      #       /
+      #      7
 
       subject.delete(10)
 
       #    expected structure:
-      #         9
-      #       /    \
-      #      8      12
-      #     / \    /  \
-      #    6  9   11  14
-      #               / \
-      #              13  51
+      #          8
+      #       /     \
+      #      6       12
+      #     / \     /  \
+      #    4   7    11  14
 
-      expect(subject.root.value).to eq(9)
+      expect(subject.root.value).to eq(8)
       expect(subject.root.parent).to eq(nil)
 
       first_left = subject.root.left
       first_right = subject.root.right
-      expect(first_left.value).to eq(8)
-      expect(first_left.parent.value).to eq(9)
+      expect(first_left.value).to eq(6)
+      expect(first_left.parent.value).to eq(8)
       expect(first_right.value).to eq(12)
-      expect(first_right.parent.value).to eq(9)
+      expect(first_right.parent.value).to eq(8)
 
-      expect(first_left.left.value).to eq(6)
-      expect(first_left.right.value).to eq(9)
+      expect(first_left.left.value).to eq(4)
+      expect(first_left.right.value).to eq(7)
       expect(first_left.right.right).to eq(nil)
       expect(first_left.right.left).to eq(nil)
 
       expect(first_right.left.value).to eq(11)
       expect(first_right.right.value).to eq(14)
-      expect(first_right.right.left.value).to eq(13)
-      expect(first_right.right.right).to eq(51)
 
     end
 
