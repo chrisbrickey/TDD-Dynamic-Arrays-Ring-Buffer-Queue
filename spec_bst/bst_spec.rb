@@ -330,7 +330,7 @@ describe BinarySearchTree do
     end
 
 
-    it "when the target is the root and it has only one child, it restructures the tree correctly" do
+    it "when the target has only one child and target is root, it restructures the tree correctly" do
       [10, 12, 14, 13, 51].each { |el| subject.insert(el) }
 
       #    expected structure:
@@ -359,6 +359,44 @@ describe BinarySearchTree do
 
       expect(subject.root.right.left.value).to eq(13)
       expect(subject.root.right.right.value).to eq(51)
+    end
+
+    it "when target has 2 children and left child is max of left subtree, it restructures the tree correctly" do
+      [10, 8, 14, 6, 9, 12, 16, 4, 5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #          10
+      #       /       \
+      #      8         14
+      #     / \      /     \
+      #    6  9     12      16
+      #   /
+      #  4
+      #   \
+      #    5
+
+      subject.delete(8)
+
+      #    expected structure:
+      #          10
+      #       /       \
+      #      6         14
+      #     / \      /     \
+      #    4  9     12      16
+      #     \
+      #      5
+
+      expect(subject.root.value).to eq(10)
+      expect(subject.root.left.value).to eq(6)
+      expect(subject.root.left.parent.value).to eq(10)
+
+      expect(subject.root.left.left.value).to eq(4)
+      expect(subject.root.left.right.value).to eq(9)
+      expect(subject.root.left.right.parent.value).to eq(6)
+
+      expect(subject.root.left.right.right).to eq(nil)
+      expect(subject.root.left.left.left).to eq(nil)
+      expect(subject.root.left.left.right.value).to eq(5)
     end
 
 
