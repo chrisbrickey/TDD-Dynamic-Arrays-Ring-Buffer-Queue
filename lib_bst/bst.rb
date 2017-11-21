@@ -63,27 +63,53 @@ class BinarySearchTree
       what_we_are_deleting = "right"
     end
 
+    #target has no children
     if (the_node_to_delete.left.nil?) && (the_node_to_delete.right.nil?)
       case what_we_are_deleting
+      when "root" #the root was the only node in the tree
+        @root = nil
       when "left"
-        the_node_to_delete.parent = nil
         the_parent.left = nil
       when "right"
-        the_node_to_delete.parent = nil
         the_parent.right = nil
       end
 
+    #when target has one child on the right
     elsif the_node_to_delete.left.nil?
-      #pull right subtree up to replace the_node_to_delete
+      case what_we_are_deleting
+      when "root"
+        @root = the_node_to_delete.right
+        the_node_to_delete.right.parent = nil
+      when "left"
+        the_parent.left = the_node_to_delete.right
+        the_parent.left.parent = the_parent
+      when "right"
+        the_parent.right = the_node_to_delete.right
+        the_parent.right.parent = the_parent
+      end
+
+    #target has one child on the left
     elsif the_node_to_delete.right.nil?
-      #pull left subtree up to replace the_node_to_delete
-    else # node has two children
+      case what_we_are_deleting
+      when "root"
+        @root = the_node_to_delete.left
+        the_node_to_delete.left.parent = nil
+      when "left"
+        the_parent.left = the_node_to_delete.left
+        the_parent.left.parent = the_parent
+      when "right"
+        the_parent.right = the_node_to_delete.left
+        the_parent.right.parent = the_parent
+      end
+
+    #target has two children
+    else
       #find the max of the left sub_tree
     end
 
 
 
-
+    the_node_to_delete.parent = nil
     the_node_to_delete
   end
 
