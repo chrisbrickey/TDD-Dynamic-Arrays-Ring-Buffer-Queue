@@ -96,10 +96,18 @@ describe TieredPlates do
     end
 
     it "if the index is vacant, it returns nil" do
+      expect(subject.atIndex(0)).to eq(nil)
+      expect(subject.atIndex(1)).to eq(nil)
+      expect(subject.atIndex(2)).to eq(nil)
+      
       subject.push("a")
       subject.push("b")
       subject.push("c")
+
       expect(subject.atIndex(3)).to eq(nil)
+      expect(subject.atIndex(4)).to eq(nil)
+      expect(subject.atIndex(5)).to eq(nil)
+      expect(subject.atIndex(6)).to eq(nil)
     end
 
   end
