@@ -14,6 +14,14 @@ describe TieredPlates do
       expect(subject.pop).to eq("a")
     end
 
+    it "adds an element to the end of a larger stack" do
+      subject.push("a")
+      subject.push("b")
+      subject.push("c")
+      subject.push("d")
+      expect(subject.pop).to eq("d")
+    end
+
   end
 
   describe "#pop" do
