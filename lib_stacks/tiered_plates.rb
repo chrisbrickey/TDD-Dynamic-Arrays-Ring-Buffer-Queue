@@ -3,9 +3,9 @@ class TieredPlates
   attr_reader :stacks
 
   def initialize
-    @stacks = [[nil, nil, nil]]
-    @capacity = 3
-    @num_of_stacks = 1
+    @stacks = []
+    @capacity = 0
+    @num_of_stacks = 0
     @length = 0
   end
 
