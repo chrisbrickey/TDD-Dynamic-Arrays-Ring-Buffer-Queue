@@ -22,6 +22,23 @@ describe TieredPlates do
       expect(subject.pop).to eq("d")
     end
 
+    it "expands as stack grows; does not write over older elements" do
+      subject.push("a")
+      subject.push("b")
+      subject.push("c")
+      subject.push("d")
+      subject.push("e")
+      subject.push("f")
+      subject.push("g")
+      expect(subject.pop).to eq("g")
+      expect(subject.pop).to eq("f")
+      expect(subject.pop).to eq("e")
+      expect(subject.pop).to eq("d")
+      expect(subject.pop).to eq("c")
+      expect(subject.pop).to eq("b")
+      expect(subject.pop).to eq("a")
+    end
+
   end
 
   describe "#pop" do
