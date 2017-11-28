@@ -21,4 +21,18 @@ class TieredPlates
   def atIndex(idx)
   end
 
+  private
+
+  def grow
+    @stacks << [nil, nil, nil]
+    @capacity += 3
+    @num_of_stacks += 1
+  end
+
+  def shrink
+    @stacks.pop
+    @capacity -= 3
+    @num_of_stacks -= 1
+  end
+
 end # of class
