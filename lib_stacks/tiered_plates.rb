@@ -22,6 +22,8 @@ class TieredPlates
     element = @stacks[@num_of_stacks - 1][(@length - 1) % 3]
     @stacks[@num_of_stacks - 1][(@length - 1) % 3] = nil
     @length -= 1
+
+    shrink if @length % 3 == 0
     element
   end
 
