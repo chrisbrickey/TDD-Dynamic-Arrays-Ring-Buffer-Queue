@@ -20,7 +20,7 @@ class TieredPlates
 
   def pop()
     raise "stacks are empty" if @length == 0
-    
+
     element = @stacks[@num_of_stacks - 1][(@length - 1) % 3]
     @stacks[@num_of_stacks - 1][(@length - 1) % 3] = nil
     @length -= 1
@@ -31,6 +31,9 @@ class TieredPlates
 
 
   def atIndex(idx)
+    stack_idx = idx / 3
+    col_idx = idx % 3
+    @stacks[stack_idx][col_idx]
   end
 
   private
