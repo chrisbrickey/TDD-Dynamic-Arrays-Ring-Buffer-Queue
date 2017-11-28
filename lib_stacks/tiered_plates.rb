@@ -1,5 +1,7 @@
 class TieredPlates
 
+  attr_reader :stacks
+
   def initialize
     @stacks = [[nil, nil, nil]]
     @capacity = 3
@@ -8,13 +10,18 @@ class TieredPlates
   end
 
   def push(element)
+    grow if @capacity == @length
+
     stack_idx = @num_of_stacks - 1  #0 if still on first stack
     col_idx = @length % 3
     @stacks[stack_idx][col_idx] = element
+    @length += 1
   end
 
   def pop()
-    element = @stacks[@num_of_stacks - 1][@length % 3]
+    element = @stacks[@num_of_stacks - 1][(@length - 1) % 3]
+    @stacks[@num_of_stacks - 1][(@length - 1) % 3] = nil
+    @length -= 1
     element
   end
 
