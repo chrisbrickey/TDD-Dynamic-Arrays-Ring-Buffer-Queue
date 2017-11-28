@@ -14,7 +14,8 @@ class TieredPlates
   end
 
   def pop()
-    "a"
+    element = @stacks[@num_of_stacks - 1][@length % 3]
+    element
   end
 
 
