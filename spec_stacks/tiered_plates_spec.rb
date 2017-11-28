@@ -39,6 +39,24 @@ describe TieredPlates do
       expect(subject.pop).to eq("a")
     end
 
+    it "recovers after stack is wiped out" do
+      subject.push("a")
+      subject.push("b")
+      expect(subject.pop).to eq("b")
+      expect(subject.pop).to eq("a")
+
+      subject.push("c")
+      subject.push("d")
+      subject.push("e")
+      subject.push("f")
+      subject.push("g")
+      expect(subject.pop).to eq("g")
+      expect(subject.pop).to eq("f")
+      expect(subject.pop).to eq("e")
+      expect(subject.pop).to eq("d")
+      expect(subject.pop).to eq("c")
+    end
+
   end
 
   describe "#pop" do
