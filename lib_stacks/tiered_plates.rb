@@ -31,6 +31,8 @@ class TieredPlates
 
 
   def atIndex(idx)
+    return nil if idx >= @length  
+
     stack_idx = idx / 3
     col_idx = idx % 3
     @stacks[stack_idx][col_idx]
