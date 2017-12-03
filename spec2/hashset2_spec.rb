@@ -151,6 +151,17 @@ describe 'HashSet2' do
     expect(set1.contain(1)).to eq(false)
   end
 
+  it "should be empty when nothing added to the set" do
+    set1 = HashSet2.new()
+    expect(set1.isEmpty).to eq(true)
+  end
+
+  it "should not be empty when something added to the set" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    expect(set1.isEmpty).to eq(false)
+  end
+
 
 
 

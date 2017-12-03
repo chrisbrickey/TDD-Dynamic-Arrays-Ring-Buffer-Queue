@@ -71,4 +71,8 @@ class HashSet2
     @size = 0
   end
 
+  def isEmpty
+    @size == 0
+  end
+
 end
