@@ -66,4 +66,9 @@ class HashSet2
     set.size == @size
   end
 
+  def clear
+    @elements = []
+    @size = 0
+  end
+
 end

@@ -131,4 +131,27 @@ describe 'HashSet2' do
     expect(set1.size).to eq(1)
   end
 
+  it "can be cleared" do
+    set1 = HashSet2.new()
+    set1.clear
+    expect(set1.size).to eq(0)
+  end
+
+  it "results in size 0 when clear" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.clear
+    expect(set1.size).to eq(0)
+  end
+
+  it "results in empty set when clear" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.clear
+    expect(set1.contain(1)).to eq(false)
+  end
+
+
+
+
 end #HashSet2
