@@ -42,17 +42,56 @@ describe 'HashSet2' do
     mySpecialHashset = HashSet2.new()
     mySpecialHashset.add(9)
     mySpecialHashset.remove(9)
-    expect(mySpecialHashset.size).to eq(0)
     expect(mySpecialHashset.contain(9)).to eq(false)
+  end
+
+  it "shrinks the set when removing an element that exists in the set" do
+    mySpecialHashset = HashSet2.new()
+    mySpecialHashset.add(9)
+    mySpecialHashset.remove(9)
+    expect(mySpecialHashset.size).to eq(0)
+  end
+
+  it "does not add an element when removing an element that does not exist in the set" do
+    mySpecialHashset = HashSet2.new()
+    mySpecialHashset.remove(10)
+    expect(mySpecialHashset.contain(10)).to eq(false)
   end
 
   it "does not shrink the set when removing an element that does not exist in the set" do
     mySpecialHashset = HashSet2.new()
     mySpecialHashset.remove(10)
     expect(mySpecialHashset.size).to eq(0)
-    expect(mySpecialHashset.contain(10)).to eq(false)
   end
 
+  it "is equivalent to another set with the same size" do
+    set1 = HashSet2.new()
+    set2 = HashSet2.new()
+    expect(set1.equals(set2)).to eq(true)
+  end
+
+  it "is not equivalent to another set with different size" do
+    set1 = HashSet2.new()
+    set2 = HashSet2.new()
+    set2.add(1)
+    expect(set1.equals(set2)).to eq(false)
+  end
+
+  it "is equivalent to another set with the same elements" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set2 = HashSet2.new()
+    set2.add(1)
+    expect(set1.equals(set2)).to eq(true)
+  end
+
+  it "is not equivalent to another set with the different elements" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set2 = HashSet2.new()
+    set2.add(2)
+    expect(set1.equals(set2)).to eq(false)
+  end
 
 
 end #HashSet2

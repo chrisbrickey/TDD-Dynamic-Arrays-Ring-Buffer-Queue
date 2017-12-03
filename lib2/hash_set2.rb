@@ -44,5 +44,14 @@ class HashSet2
     @elements = new_elements
   end
 
+  def equals(set)
+    @elements.each do |el|
+      if !set.contain(el)
+        return false
+      end
+    end
+
+    set.size == @size
+  end
 
 end
