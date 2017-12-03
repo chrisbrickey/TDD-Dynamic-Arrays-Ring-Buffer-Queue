@@ -93,5 +93,17 @@ describe 'HashSet2' do
     expect(set1.equals(set2)).to eq(false)
   end
 
+  it "adds an empty collection to the set" do
+    set1 = HashSet2.new()
+    set1.addAll([])
+    expect(set1.size).to eq(0)
+  end
+
+  it "adds a collection with one element to the set" do
+    set1 = HashSet2.new()
+    set1.addAll([1])
+    expect(set1.size).to eq(1)
+  end
+
 
 end #HashSet2

@@ -21,6 +21,12 @@ class HashSet2
     @size += 1
   end
 
+  def addAll(arr)
+    arr.each do |el|
+      add(el)
+    end
+  end
+
   def contain(element)
     @elements.each do |el|
       if el == element
