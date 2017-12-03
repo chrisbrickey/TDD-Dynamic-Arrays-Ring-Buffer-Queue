@@ -38,6 +38,20 @@ describe 'HashSet2' do
     expect(mySpecialHashset.size).to eq(2)
   end
 
+  it "removes an element that exists in the set" do
+    mySpecialHashset = HashSet2.new()
+    mySpecialHashset.add(9)
+    mySpecialHashset.remove(9)
+    expect(mySpecialHashset.size).to eq(0)
+    expect(mySpecialHashset.contain(9)).to eq(false)
+  end
+
+  it "does not shrink the set when removing an element that does not exist in the set" do
+    mySpecialHashset = HashSet2.new()
+    mySpecialHashset.remove(10)
+    expect(mySpecialHashset.size).to eq(0)
+    expect(mySpecialHashset.contain(10)).to eq(false)
+  end
 
 
 

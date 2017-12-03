@@ -31,6 +31,18 @@ class HashSet2
     false
   end
 
+  def remove(element)
+    new_elements = []
+    @elements.each do |el|
+      if el != element
+        new_elements << el
+      else
+        @size -= 1
+      end
+    end
+
+    @elements = new_elements
+  end
 
 
 end
