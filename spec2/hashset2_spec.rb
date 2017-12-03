@@ -105,5 +105,30 @@ describe 'HashSet2' do
     expect(set1.size).to eq(1)
   end
 
+  it "does not change when empty collection is removed" do
+    set1 = HashSet2.new()
+    set1.removeAll([])
+    expect(set1.size).to eq(0)
+  end
+
+  it "does not change when collection is removed from empty set" do
+    set1 = HashSet2.new()
+    set1.removeAll([1])
+    expect(set1.size).to eq(0)
+  end
+
+  it "removes the elements in a collection if they exist in the set" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.removeAll([1])
+    expect(set1.size).to eq(0)
+  end
+
+  it "does not change the set if elements in a collection do not exist in the set" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.removeAll([2])
+    expect(set1.size).to eq(1)
+  end
 
 end #HashSet2

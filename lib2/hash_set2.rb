@@ -50,6 +50,12 @@ class HashSet2
     @elements = new_elements
   end
 
+  def removeAll(arr)
+    arr.each do |el|
+      remove(el)
+    end
+  end
+
   def equals(set)
     @elements.each do |el|
       if !set.contain(el)
