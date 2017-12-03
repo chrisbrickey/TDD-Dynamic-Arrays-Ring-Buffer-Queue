@@ -37,6 +37,17 @@ class HashSet2
     false
   end
 
+  def containAll(arr)
+    arr.each do |el|
+      if !contain(el)
+        return false
+      end
+    end
+
+    true
+  end
+
+
   def remove(element)
     new_elements = []
     @elements.each do |el|

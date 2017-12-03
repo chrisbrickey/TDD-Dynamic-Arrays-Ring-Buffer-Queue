@@ -162,6 +162,22 @@ describe 'HashSet2' do
     expect(set1.isEmpty).to eq(false)
   end
 
+  it "returns true if both the collection and set are empty" do
+    set1 = HashSet2.new()
+    expect(set1.containAll([])).to eq(true)
+  end
+
+  it "returns false if it does not contains all items in a non-empty collection" do
+    set1 = HashSet2.new()
+    expect(set1.containAll([1])).to eq(false)
+  end
+
+  it "returns true if it contains all items in a non-empty collection" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    expect(set1.containAll([1])).to eq(true)
+  end
+
 
 
 
