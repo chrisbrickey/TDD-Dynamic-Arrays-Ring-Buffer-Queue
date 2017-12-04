@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../lib2/hash_set2.rb'
+require_relative '../lib2/h_set2.rb'
 
 describe 'HashSet2' do
 
