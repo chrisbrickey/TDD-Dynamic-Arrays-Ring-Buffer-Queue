@@ -41,6 +41,16 @@ class Set
     @elements = new_elements
   end
 
+  def contain(element)
+    @elements.each do |el|
+      return true if element == el
+    end
+
+    false
+  end
+
+  private
+
   def resize
     @capacity *= 2
     new_elements = Array.new(@capacity)

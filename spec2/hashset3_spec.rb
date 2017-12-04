@@ -51,7 +51,28 @@ describe 'HashSet3' do
     expect(set1.size).to eq(0)
   end
 
+  it "expands in size" do
+    set1 = Set.new
+    set1.add(1)
+    set1.add(2)
+    set1.add(3)
+    expect(set1.size).to eq(3)
+  end
 
+  it "expands in contents" do
+    set1 = Set.new
+    set1.add(1)
+    set1.add(2)
+    set1.add(3)
+    expect(set1.contain(1)).to eq(true)
+    expect(set1.contain(2)).to eq(true)
+    expect(set1.contain(3)).to eq(true)
+  end
+
+  it "does not report contained items that are not in the set" do
+    set1 = Set.new
+    expect(set1.contain(1)).to eq(false)
+  end
 
 
 
