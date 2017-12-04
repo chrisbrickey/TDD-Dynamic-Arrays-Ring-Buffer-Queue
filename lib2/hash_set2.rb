@@ -67,6 +67,19 @@ class HashSet2
     end
   end
 
+  def retainAll(arr)
+    new_arr = []
+    @size = 0
+    @elements.each do |el|
+      if arr.include?(el)
+        new_arr << el
+        @size += 1
+      end
+    end
+
+    @elements = new_arr
+  end
+
   def equals(set)
     @elements.each do |el|
       if !set.contain(el)

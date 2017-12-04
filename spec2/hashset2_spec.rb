@@ -179,6 +179,27 @@ describe 'HashSet2' do
   end
 
 
+  it "does not add elements to the set when retainAll collection contains new elements" do
+    set1 = HashSet2.new()
+    set1.retainAll([1])
+    expect(set1.isEmpty).to eq(true)
+  end
+
+  it "reports correct size of resulting set after retainAll called" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.add(2)
+    set1.retainAll([1])
+    expect(set1.size).to eq(1)
+  end
+
+  it "only retains elements from a collection after retainAll called" do
+    set1 = HashSet2.new()
+    set1.add(1)
+    set1.add(2)
+    set1.retainAll([1])
+    expect(set1.contain(2)).to eq(false)
+  end
 
 
 end #HashSet2
