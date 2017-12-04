@@ -36,4 +36,24 @@ describe 'HashSet3' do
     expect(set1.isEmpty).to eq(false)
   end
 
+  it "does not hold duplicate items" do
+    set1 = Set.new
+    set1.add(1)
+    set1.add(1)
+    expect(set1.size).to eq(1)
+  end
+
+  it "does not remove items twice" do
+    set1 = Set.new
+    set1.add(1)
+    set1.remove(1)
+    set1.remove(1)
+    expect(set1.size).to eq(0)
+  end
+
+
+
+
+
+
 end

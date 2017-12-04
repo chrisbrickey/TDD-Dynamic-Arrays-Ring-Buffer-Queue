@@ -6,13 +6,22 @@ class Set
     @capacity = 1
   end
 
+  def size
+    @length
+  end
+
   def isEmpty
     @length == 0
   end
 
   def add(element)
-    resize if @length == @capacity 
-    
+    @elements.each do |el|
+      if el == element
+        return
+      end
+    end
+
+    resize if @length == @capacity
     @elements[@length] = element
     @length += 1
   end
