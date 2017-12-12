@@ -9,6 +9,10 @@ class BalancedBST
     @root = nil
   end
 
+  def is_balanced?
+    true
+  end
+
 
   def insert(el, tree_node=@root)
 
