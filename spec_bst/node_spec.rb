@@ -21,8 +21,11 @@ describe Node do
       expect(subject.value).to eq(10)
     end
 
-    xit "does not allow setter access (read only) to value attribute" do
-
+    it "does not allow setter access (read only) to value attribute" do
+      subject = Node.new(10)
+      expect do
+        subject.value = 9
+      end.to raise_exception
     end
 
     it "allows getter and setter access to parent, left child, and right child attributes" do
