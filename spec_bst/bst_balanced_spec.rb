@@ -512,7 +512,29 @@ describe BalancedBST do
 
     end
 
+  end ##delete
 
-  end
+  describe "BalancedBST#is_balanced?" do
+
+    it "returns true if no nodes" do
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if no children" do
+      subject.insert(10)
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if root has one child" do
+      [10, 6].each { |el| subject.insert(el) }
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if root has two children" do
+      [10, 6, 12].each { |el| subject.insert(el) }
+      expect(subject.is_balanced?).to be(true)
+    end
+    
+  end #is_balanced?
 
 end #of BalancedBST
