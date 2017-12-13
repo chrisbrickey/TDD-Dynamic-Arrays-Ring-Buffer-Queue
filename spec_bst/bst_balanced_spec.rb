@@ -616,7 +616,7 @@ describe BalancedBST do
     end
 
     it "returns false if sub-trees have depth 2" do
-      [10, 6, 12, 8, 11, 14, 11.5].each { |el| subject.insert(el) }
+      [10, 6, 12, 4, 8, 7].each { |el| subject.insert(el) }
 
       #    expected structure:
       #         10
