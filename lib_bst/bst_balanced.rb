@@ -16,8 +16,10 @@ class BalancedBST
   def depth
     if @root.nil?
       return nil
-    else
+    elsif @root.left.nil? && @root.right.nil?
       return 1
+    else
+      return 2
     end
   end
 

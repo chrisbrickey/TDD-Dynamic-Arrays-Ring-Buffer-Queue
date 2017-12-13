@@ -525,6 +525,16 @@ describe BalancedBST do
       expect(subject.depth).to eq(1)
     end
 
+    it "returns 2 if tree has two nodes" do
+      [10, 6].each { |el| subject.insert(el) }
+      expect(subject.depth).to eq(2)
+    end
+
+    it "returns 2 if tree has three nodes on two levels" do
+      [10, 6, 12].each { |el| subject.insert(el) }
+      expect(subject.depth).to eq(2)
+    end
+
   end
 
 
