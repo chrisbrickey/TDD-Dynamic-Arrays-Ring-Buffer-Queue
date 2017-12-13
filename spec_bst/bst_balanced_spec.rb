@@ -534,7 +534,52 @@ describe BalancedBST do
       [10, 6, 12].each { |el| subject.insert(el) }
       expect(subject.is_balanced?).to be(true)
     end
-    
+
+    it "returns true if sub-trees have same depth" do
+      [10, 6, 12, 4, 8, 7, 11, 14, 11.5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #     / \    /  \
+      #    4   8  11  14
+      #       /    \
+      #      7      11.5
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if sub-trees have depth +1" do
+      [10, 6, 12, 4, 8, 7, 11].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #     / \    /
+      #    4   8  11
+      #       /
+      #      7
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if sub-trees have depth -1" do
+      [10, 6, 12, 8, 11, 14, 11.5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #       \    /  \
+      #        8  11  14
+      #            \
+      #             11.5
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
   end #is_balanced?
 
 end #of BalancedBST
