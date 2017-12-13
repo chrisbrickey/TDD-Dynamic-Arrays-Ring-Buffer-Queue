@@ -13,14 +13,24 @@ class BalancedBST
     true
   end
 
-  def depth
-    if @root.nil?
-      return nil
-    elsif @root.left.nil? && @root.right.nil?
-      return 1
-    else
-      return 2
+  def depth #counting levels using bfs
+    return nil if @root.nil?
+    depth = 0
+    queue = [@root]
+
+    while !queue.empty?
+      depth += 1
+      nodes_at_this_level = queue.length
+
+      #remove all nodes and current level and add all nodes at next level
+      nodes_at_this_level.times do
+        current = queue.shift
+        queue << current.left if !current.left.nil?
+        queue << current.right if !current.right.nil?
+      end
     end
+
+    depth
   end
 
 
