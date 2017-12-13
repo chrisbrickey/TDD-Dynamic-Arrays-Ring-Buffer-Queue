@@ -514,6 +514,16 @@ describe BalancedBST do
 
   end ##delete
 
+  describe "BalancedBST#depth" do
+
+    it "returns nil if tree is empty" do
+      expect(subject.depth).to be(nil)
+    end
+
+  end
+
+
+
   describe "BalancedBST#is_balanced?" do
 
     it "returns true if no nodes" do

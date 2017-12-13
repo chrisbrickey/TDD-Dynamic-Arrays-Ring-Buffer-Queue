@@ -13,6 +13,10 @@ class BalancedBST
     true
   end
 
+  def depth
+    nil
+  end
+
 
   def insert(el, tree_node=@root)
 
