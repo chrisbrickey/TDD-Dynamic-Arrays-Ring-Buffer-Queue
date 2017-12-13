@@ -10,12 +10,24 @@ class BalancedBST
   end
 
   def is_balanced?
-    true
+    if @root.nil?
+      return true
+    elsif @root.left.nil? && @root.right.nil?
+      return true
+    # elsif @root.left.nil? || @root.right.nil? #root  only has one child
+    #   return false
+    end
+
+    left_depth = depth(@root.left)
+    right_depth = depth(@root.right)
+    delta = (left_depth - right_depth).abs
+    delta <= 1 #implicit return
   end
 
   def depth(node=@root) #counting levels using bfs
-    return nil if @root.nil?
     depth = 0
+    return depth if node.nil?
+
     queue = [node]
 
     while !queue.empty?
@@ -28,6 +40,7 @@ class BalancedBST
         queue << current.left if !current.left.nil?
         queue << current.right if !current.right.nil?
       end
+
     end
 
     depth
