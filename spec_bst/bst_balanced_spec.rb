@@ -517,27 +517,32 @@ describe BalancedBST do
   describe "BalancedBST#depth" do
 
     it "returns nil if tree is empty" do
-      expect(subject.depth).to be(nil)
+      expect(subject.depth(subject.root)).to be(nil)
     end
 
     it "returns 1 if tree has one node" do
       subject.insert(10)
-      expect(subject.depth).to eq(1)
+      expect(subject.depth(subject.root)).to eq(1)
     end
 
     it "returns 2 if tree has two nodes" do
       [10, 6].each { |el| subject.insert(el) }
-      expect(subject.depth).to eq(2)
+      expect(subject.depth(subject.root)).to eq(2)
     end
 
     it "returns 2 if tree has three nodes on two levels" do
       [10, 6, 12].each { |el| subject.insert(el) }
-      expect(subject.depth).to eq(2)
+      expect(subject.depth(subject.root)).to eq(2)
     end
 
-    it "returns 3 if tree has three nodes on three levels" do
+    it "returns 3 if tree has three nodes on three levels leaning left" do
       [10, 6, 8].each { |el| subject.insert(el) }
-      expect(subject.depth).to eq(3)
+      expect(subject.depth(subject.root)).to eq(3)
+    end
+
+    it "returns 3 if tree has three nodes on three levels leaning right" do
+      [10, 6, 12, 11].each { |el| subject.insert(el) }
+      expect(subject.depth(subject.root)).to eq(3)
     end
 
   end

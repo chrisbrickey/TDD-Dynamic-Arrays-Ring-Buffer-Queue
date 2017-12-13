@@ -13,10 +13,10 @@ class BalancedBST
     true
   end
 
-  def depth #counting levels using bfs
+  def depth(node=@root) #counting levels using bfs
     return nil if @root.nil?
     depth = 0
-    queue = [@root]
+    queue = [node]
 
     while !queue.empty?
       depth += 1
