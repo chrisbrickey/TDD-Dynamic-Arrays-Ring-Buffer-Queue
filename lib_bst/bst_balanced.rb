@@ -10,17 +10,13 @@ class BalancedBST
   end
 
   def is_balanced?
-    if @root.nil?
-      return true
-    elsif @root.left.nil? && @root.right.nil?
-      return true
-    # elsif @root.left.nil? || @root.right.nil? #root  only has one child
-    #   return false
-    end
+    return true if @root.nil?
+    # return true if @root.left.nil? && @root.right.nil?
 
     left_depth = depth(@root.left)
     right_depth = depth(@root.right)
     delta = (left_depth - right_depth).abs
+
     delta <= 1 #implicit return
   end
 
