@@ -520,6 +520,11 @@ describe BalancedBST do
       expect(subject.depth).to be(nil)
     end
 
+    it "returns 1 if tree has one node" do
+      subject.insert(10)
+      expect(subject.depth).to eq(1)
+    end
+
   end
 
 

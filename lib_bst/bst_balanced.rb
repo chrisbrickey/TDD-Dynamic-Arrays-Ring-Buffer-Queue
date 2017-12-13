@@ -14,7 +14,11 @@ class BalancedBST
   end
 
   def depth
-    nil
+    if @root.nil?
+      return nil
+    else
+      return 1
+    end
   end
 
 
