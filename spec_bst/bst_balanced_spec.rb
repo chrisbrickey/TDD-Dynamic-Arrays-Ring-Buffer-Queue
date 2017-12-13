@@ -516,8 +516,8 @@ describe BalancedBST do
 
   describe "BalancedBST#depth" do
 
-    it "returns nil if tree is empty" do
-      expect(subject.depth(subject.root)).to be(nil)
+    it "returns 0 if tree is empty" do
+      expect(subject.depth(subject.root)).to eq(0)
     end
 
     it "returns 1 if tree has one node" do
