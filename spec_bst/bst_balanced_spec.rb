@@ -630,7 +630,7 @@ describe BalancedBST do
       expect(subject.is_balanced?).to be(false)
     end
 
-    it "returns true if sub-trees have depth -2" do
+    it "returns false if sub-trees have depth -2" do
       [10, 6, 12, 11, 14, 11.5].each { |el| subject.insert(el) }
 
       #    expected structure:
@@ -646,5 +646,35 @@ describe BalancedBST do
     end
 
   end #is_balanced?
+
+  describe "BalancedBST#rebalance" do
+    it "doesn't change a balanced tree" do
+      [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
+      subject.rebalance
+      #    expected structure (unchanged because already balanced):
+      #         10
+      #       /    \
+      #      8      12
+      #     / \    /  \
+      #    6  9   11  14
+      #        \      / \
+      #        9    13   51
+
+      expect(subject.root.value).to eq(10)
+
+      first_left = subject.root.left
+      first_right = subject.root.right
+      expect(first_left.value).to eq(8)
+      expect(first_right.value).to eq(12)
+
+      expect(first_left.left.value).to eq(6)
+      expect(first_left.right.right.value).to eq(9)
+      expect(first_right.left.value).to eq(11)
+      expect(first_right.right.left.value).to eq(13)
+
+      expect(first_right.right.right.left).to eq(nil)
+      expect(first_right.right.right.right).to eq(nil)
+    end
+  end
 
 end #of BalancedBST

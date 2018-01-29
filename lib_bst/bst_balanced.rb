@@ -9,6 +9,12 @@ class BalancedBST
     @root = nil
   end
 
+  def rebalance
+    if !is_balanced?
+       @root = 71
+    end
+  end
+
   def is_balanced?
     return true if @root.nil?
     # return true if @root.left.nil? && @root.right.nil?
