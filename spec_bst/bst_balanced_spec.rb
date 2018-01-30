@@ -628,7 +628,36 @@ describe BalancedBST do
 
     end
 
-    xit "rebalances small tree when deletion creates imbalance" do
+    it "rebalances small tree when deletion creates imbalance" do
+      [10, 8, 12, 9].each { |el| subject.insert(el) }
+
+      #    expected structure (should not require rebalancing to construct):
+      #         10
+      #       /     \
+      #      8      12
+      #      \
+      #       9
+
+      subject.delete(12)
+
+      #    expected structure: -->
+      #         10              9
+      #       /                / \
+      #      8                8   10
+      #      \
+      #       9
+
+      expect(subject.root.value).to eq(9)
+      expect(subject.root.parent).to eq(nil)
+
+      first_left = subject.root.left #8
+      first_right = subject.root.right #10
+      expect(first_left.value).to eq(8)
+      expect(first_left.parent.value).to eq(9)
+      expect(first_right.value).to eq(10)
+      expect(first_right.parent.value).to eq(9)
+
+      expect(first_left.right).to eq(nil)
     end
 
     xit "rebalances large tree when deletion creates imbalance" do
