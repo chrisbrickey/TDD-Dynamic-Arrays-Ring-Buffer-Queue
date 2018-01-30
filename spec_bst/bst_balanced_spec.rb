@@ -99,7 +99,13 @@ describe BalancedBST do
       expect(first_right.right.right.parent.value).to eq(14)
     end
 
-  end
+    xit "doesn't rebalance when insertion does not create imbalance" do
+    end
+
+    xit "does rebalance when insertion creates imbalance" do
+    end
+
+  end #insert
 
 
   describe "BalancedBST#find" do
@@ -136,7 +142,10 @@ describe BalancedBST do
       expect(subject.find(51).value).to eq(51)
     end
 
-  end
+    xit "runs faster than BST#find, which does not rebalance " do
+    end
+
+  end #of find
 
 
   describe "BalancedBST#delete" do
@@ -512,7 +521,13 @@ describe BalancedBST do
 
     end
 
-  end ##delete
+    xit "doesn't rebalance when deletion does not create imbalance" do
+    end
+
+    xit "does rebalance when deletion creates imbalance" do
+    end
+
+  end #delete
 
   describe "BalancedBST#depth" do
 
@@ -545,7 +560,7 @@ describe BalancedBST do
       expect(subject.depth(subject.root)).to eq(3)
     end
 
-  end
+  end # depth
 
 
 
