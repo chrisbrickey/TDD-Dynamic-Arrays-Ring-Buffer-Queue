@@ -44,9 +44,6 @@ class BalancedBST
   end
 
 
-
-
-
   def insert(el)
     insert_recursively(el)
     rebalance_tree if !is_balanced?
@@ -82,7 +79,7 @@ class BalancedBST
       what_we_are_deleting = "right"
     end
 
-    # target has no children so remove from tree and return early
+    # target has no children so remove from tree and RETURN EARLY
     if (the_node_to_delete.left.nil?) && (the_node_to_delete.right.nil?)
       case what_we_are_deleting
       when "root" #the root was the only node in the tree
@@ -94,6 +91,8 @@ class BalancedBST
       end
 
       the_node_to_delete.parent = nil
+
+      rebalance_tree if !is_balanced?
       return the_node_to_delete
     end
 
@@ -155,6 +154,14 @@ class BalancedBST
     the_node_to_delete.right = nil
     the_node_to_delete.parent = nil
     the_node_to_delete
+
+    if 2 == 2
+      print "two equals two\n"
+    end
+
+    # if !is_balanced?
+    #   print "NOT BALANCED===========\n"
+    # end
   end #delete
 
 
