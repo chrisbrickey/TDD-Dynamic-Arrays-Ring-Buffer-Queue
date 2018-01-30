@@ -11,11 +11,26 @@ class BalancedBST
 
   def rebalance
     if !is_balanced?
-      #
-      #
-      # sorted_version = [4, 5, 6, 8, 9, 10, 12, 14, 16]
-      # insert_order =
-      #  @root = 71
+      sorted_arr = traverse_in_order
+      mid = sorted_arr.length / 2
+      @root = Node.new(sorted_arr[mid])
+      
+      delta = 1
+      lefty = sorted_arr[mid - delta]
+      righty = sorted_arr[mid + delta]
+      while !lefty.nil? || !righty.nil?
+
+        if lefty
+          insert(lefty)
+        end
+        if righty
+          insert(righty)
+        end
+        delta += 1
+        lefty = sorted_arr[mid - delta]
+        righty = sorted_arr[mid + delta]
+      end
+
     end
   end
 

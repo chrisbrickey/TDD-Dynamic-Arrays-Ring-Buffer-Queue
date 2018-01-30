@@ -695,6 +695,7 @@ describe BalancedBST do
 
     it "balances an unbalanced tree" do
       [10, 8, 14, 6, 9, 12, 16, 4, 5].each { |el| subject.insert(el) }
+
       #    expected structure:
       #          10
       #       /       \
@@ -706,10 +707,9 @@ describe BalancedBST do
       #   \
       #    5
 
+      expect(subject.is_balanced?).to be false
       subject.rebalance
       expect(subject.is_balanced?).to be true
-
-
     end
 
 
