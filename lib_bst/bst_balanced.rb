@@ -9,7 +9,7 @@ class BalancedBST
     @root = nil
   end
 
-  def rebalanced_array(original_arr, sorted_arr=[])
+  def rebalance_array(original_arr, sorted_arr=[])
     size = original_arr.length
     return [] if size <= 0
 
@@ -17,60 +17,26 @@ class BalancedBST
     sorted_arr << original_arr[mid]
 
     lefty = original_arr[0...mid]
-    rebalanced_array(lefty, sorted_arr)
+    rebalance_array(lefty, sorted_arr)
 
     righty = original_arr[(mid + 1)..-1]
-    rebalanced_array(righty, sorted_arr)
-    
+    rebalance_array(righty, sorted_arr)
+
     sorted_arr
   end
 
-  def rebalance
+  def rebalance_tree
     if !is_balanced?
-      print "inside rebalance conditional===========\n"
-      sorted_arr = traverse_in_order
-      size = sorted_arr.length
-      # p sorted_arr
-      mid = size / 2
-      @root = Node.new(sorted_arr[mid])
-      # insert(sorted_arr[mid])
-
-
-      left_side = sorted_arr[0...mid]
-      right_side = sorted_arr[(mid+1)..-1]
-
-      size
-
-      # delta = 1
-      # left_idx = mid - delta
-      # right_idx = mid + delta
-      # lefty = sorted_arr[mid - delta]
-      # righty = sorted_arr[mid + delta]
-      # while !lefty.nil? || !righty.nil?
-      while left_idx >= 0 || right_idx < size
-        # p "lefty: #{sorted_arr[left_idx]}\n"
-        # p "righty: #{sorted_arr[right_idx]}\n"
-
-        if left_idx >= 0
-          # p "inserting lefty now..."
-          insert(sorted_arr[left_idx])
-        end
-
-        if right_idx < size
-          # p "inserting righty now..."
-          insert(sorted_arr[right_idx])
-        end
-        delta += 1
-        left_idx = mid - delta
-        right_idx = mid + delta
-        # lefty = sorted_arr[mid - delta]
-        # righty = sorted_arr[mid + delta]
-      end
-
+      print "inside rebalance_tree conditional===========\n"
+      rebalanced_arr = rebalance_array(traverse_in_order)
+      @root = Node.new(rebalanced_arr.shift)
+      rebalanced_arr.each { |val| insert(val) }
+    else
+      print "did not rebalance because not unbalanced"
     end
   end
 
-
+  #does not work for trees where @root == nil
   def traverse_in_order(node = @root, sorted_arr=[])
 
     if node.left
@@ -87,7 +53,26 @@ class BalancedBST
   end
 
 
-  def insert(el, tree_node=@root)
+  def insert(el)
+
+    insert_recursively(el)
+
+    if !is_balanced?
+      # rebalance_tree
+      
+      print "THIS IS NOT BALANCED SO HERE WE GO REBALANCING\n"
+      existing_sorted_arr = traverse_in_order.dup
+      print "existing_sorted_arr: #{existing_sorted_arr}\n"
+      rebalanced_arr = rebalance_array(existing_sorted_arr)
+      print "rebalanced_arr: #{rebalanced_arr}\n"
+
+      @root = nil
+      rebalanced_arr.each { |val| insert_recursively(el) }
+    end
+
+  end
+
+  def insert_recursively(el, tree_node=@root)
 
     if (@root.nil?) && (tree_node == @root)
       @root = Node.new(el)
@@ -96,7 +81,7 @@ class BalancedBST
 
     if el < tree_node.value
       if tree_node.left
-        insert(el, tree_node.left)
+        insert_recursively(el, tree_node.left)
       else
         new_node = Node.new(el)
         new_node.parent = tree_node
@@ -104,7 +89,7 @@ class BalancedBST
       end
     else # el >= tree_node.value
       if tree_node.right
-        insert(el, tree_node.right)
+        insert_recursively(el, tree_node.right)
       else
         new_node = Node.new(el)
         new_node.parent = tree_node
@@ -112,7 +97,6 @@ class BalancedBST
       end
     end
 
-    rebalance
   end
 
 
@@ -218,7 +202,7 @@ class BalancedBST
     the_node_to_delete.right = nil
     the_node_to_delete.parent = nil
     the_node_to_delete
-  end
+  end #delete
 
 
   private
