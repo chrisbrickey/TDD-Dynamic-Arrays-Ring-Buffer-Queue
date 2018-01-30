@@ -647,6 +647,23 @@ describe BalancedBST do
 
   end #is_balanced?
 
+  describe "BalancedBST#traverse_in_order" do
+    it "returns sorted array of all nodes" do
+      unsorted = [10, 8, 12, 11, 6, 9, 14, 9, 13, 51]
+      sorted = unsorted.sort
+      unsorted.each { |el| subject.insert(el) }
+      #    expected structure
+      #         10
+      #       /    \
+      #      8      12
+      #     / \    /  \
+      #    6  9   11  14
+      #        \      / \
+      #        9    13   51
+      expect(subject.traverse_in_order).to eq(sorted)
+    end
+  end #traverse_in_order
+
   describe "BalancedBST#rebalance" do
     it "doesn't change a balanced tree" do
       [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| subject.insert(el) }
@@ -675,6 +692,27 @@ describe BalancedBST do
       expect(first_right.right.right.left).to eq(nil)
       expect(first_right.right.right.right).to eq(nil)
     end
-  end
+
+    it "balances an unbalanced tree" do
+      [10, 8, 14, 6, 9, 12, 16, 4, 5].each { |el| subject.insert(el) }
+      #    expected structure:
+      #          10
+      #       /       \
+      #      8         14
+      #     / \      /     \
+      #    6  9     12      16
+      #   /
+      #  4
+      #   \
+      #    5
+
+      subject.rebalance
+      expect(subject.is_balanced?).to be true
+
+
+    end
+
+
+  end #of rebalance
 
 end #of BalancedBST
