@@ -92,7 +92,7 @@ class BalancedBST
 
       the_node_to_delete.parent = nil
 
-      rebalance_tree if !is_balanced?
+      rebalance_tree if !is_balanced?  #causing an infinite loop for some #delete tests
       return the_node_to_delete
     end
 
@@ -155,13 +155,8 @@ class BalancedBST
     the_node_to_delete.parent = nil
     the_node_to_delete
 
-    if 2 == 2
-      print "two equals two\n"
-    end
-
-    # if !is_balanced?
-    #   print "NOT BALANCED===========\n"
-    # end
+    # rebalance if !is_balanced?
+    return the_node_to_delete
   end #delete
 
 
@@ -231,7 +226,6 @@ class BalancedBST
 
 
   def rebalance_tree
-    print "rebalancing....\n"
     existing_sorted_arr = traverse_in_order.dup
 
     @root = nil
