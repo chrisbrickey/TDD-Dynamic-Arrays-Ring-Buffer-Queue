@@ -8,6 +8,41 @@ class BalancedBST
   def initialize
     @root = nil
   end
+  
+  def rebalanced_array(original_arr, sorted_arr=[])
+    size = original_arr.length
+    return [] if size <= 0
+
+    mid = size / 2
+    sorted_arr << original_arr[mid]
+
+    lefty = original_arr[0...mid]
+
+    rebalanced_array(lefty, sorted_arr)
+
+    # sorted_arr += rebalanced_array(lefty, sorted_arr)
+
+    # left_result = rebalanced_array(lefty, sorted_arr)
+    # if left_result
+    #   p "inside left loop\n"
+    #   sorted_arr += left_result
+    # end
+    #
+    righty = original_arr[(mid + 1)..-1]
+
+    rebalanced_array(righty, sorted_arr)
+
+    # sorted_arr += rebalanced_array(righty, sorted_arr)
+
+    # right_result = rebalanced_array(righty, sorted_arr)
+    # if right_result
+    #   p "inside right loop\n"
+    #   sorted_arr += right_result
+    # end
+
+
+    sorted_arr
+  end
 
   def rebalance
     if !is_balanced?
@@ -19,9 +54,15 @@ class BalancedBST
       @root = Node.new(sorted_arr[mid])
       # insert(sorted_arr[mid])
 
-      delta = 1
-      left_idx = mid - delta
-      right_idx = mid + delta
+
+      left_side = sorted_arr[0...mid]
+      right_side = sorted_arr[(mid+1)..-1]
+
+      size
+
+      # delta = 1
+      # left_idx = mid - delta
+      # right_idx = mid + delta
       # lefty = sorted_arr[mid - delta]
       # righty = sorted_arr[mid + delta]
       # while !lefty.nil? || !righty.nil?
@@ -48,6 +89,7 @@ class BalancedBST
     end
   end
 
+
   def traverse_in_order(node = @root, sorted_arr=[])
 
     if node.left
@@ -62,8 +104,6 @@ class BalancedBST
 
     sorted_arr
   end
-
-
 
 
   def insert(el, tree_node=@root)
