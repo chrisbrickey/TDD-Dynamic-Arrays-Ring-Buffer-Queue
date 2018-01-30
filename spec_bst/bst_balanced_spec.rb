@@ -619,9 +619,11 @@ describe BalancedBST do
     end
 
     it "balances an unbalanced tree" do
-      [10, 8, 14, 6, 9, 12, 16, 4, 5].each { |el| subject.insert(el) }
+      unsorted = [10, 8, 14, 6, 9, 12, 16, 4, 5]
+      sorted = unsorted.sort
+      unsorted.each { |el| subject.insert(el) }
 
-      #    expected structure:
+      #    expected unsorted structure (should not rebalance until last element added):
       #          10
       #       /       \
       #      8         14
@@ -632,12 +634,43 @@ describe BalancedBST do
       #   \
       #    5
 
+
+      #    expected rebalanced structure:
+      #4, 5, 6, 8, 9, 10, 12, 14, 16
+      # size = 9
+      # mid = 4
+      #          9
+      #       /     \
+      #      8        10
+      #     / \      /    \
+      #    6              12
+      #   /                \
+      # 5                   14
+      #/                     \
+      #4                      16
+
       expect(subject.is_balanced?).to be false
       subject.rebalance
       expect(subject.is_balanced?).to be true
     end
 
-
   end #of rebalance
+
+  describe "BalancedBST#rebalanced_array" do
+
+    it "given empty array, returns empty array" do
+      expect(subject.rebalanced_array([])).to eq([])
+    end
+
+    it "given array with one item, returns same array" do
+      expect(subject.rebalanced_array([6])).to eq([6])
+    end
+
+    it "sorts short array correctly" do
+      original = [8, 10, 12]
+      re_arranged = [10, 8, 12]
+      expect(subject.rebalanced_array(original)).to eq(re_arranged)
+    end
+  end
 
 end #of BalancedBST
