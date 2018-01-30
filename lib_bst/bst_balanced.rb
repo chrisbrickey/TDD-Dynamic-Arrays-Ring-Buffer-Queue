@@ -8,7 +8,7 @@ class BalancedBST
   def initialize
     @root = nil
   end
-  
+
   def rebalanced_array(original_arr, sorted_arr=[])
     size = original_arr.length
     return [] if size <= 0
@@ -17,30 +17,11 @@ class BalancedBST
     sorted_arr << original_arr[mid]
 
     lefty = original_arr[0...mid]
-
     rebalanced_array(lefty, sorted_arr)
 
-    # sorted_arr += rebalanced_array(lefty, sorted_arr)
-
-    # left_result = rebalanced_array(lefty, sorted_arr)
-    # if left_result
-    #   p "inside left loop\n"
-    #   sorted_arr += left_result
-    # end
-    #
     righty = original_arr[(mid + 1)..-1]
-
     rebalanced_array(righty, sorted_arr)
-
-    # sorted_arr += rebalanced_array(righty, sorted_arr)
-
-    # right_result = rebalanced_array(righty, sorted_arr)
-    # if right_result
-    #   p "inside right loop\n"
-    #   sorted_arr += right_result
-    # end
-
-
+    
     sorted_arr
   end
 
