@@ -27,6 +27,28 @@ class BinarySearchTree
     sorted_arr
   end
 
+  def depth(node=@root) #counting levels using bfs
+    depth = 0
+    return depth if node.nil?
+
+    queue = [node]
+
+    while !queue.empty?
+      depth += 1
+      nodes_at_this_level = queue.length
+
+      #remove all nodes and current level and add all nodes at next level
+      nodes_at_this_level.times do
+        current = queue.shift
+        queue << current.left if !current.left.nil?
+        queue << current.right if !current.right.nil?
+      end
+
+    end
+
+    depth
+  end
+
 
   def insert(el, tree_node=@root)
 
