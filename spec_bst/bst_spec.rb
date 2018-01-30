@@ -1,6 +1,7 @@
 require "./lib_bst/bst"
 require "rspec/expectations"
 
+#tests for this class do not consider rebalancing (see BalancedBST for balancing incorporated)
 describe BinarySearchTree do
 
   before(:all) do
@@ -512,7 +513,156 @@ describe BinarySearchTree do
 
     end
 
+  end #delete
 
-  end
+  describe "BinarySearchTree#depth" do
+
+    it "returns 0 if tree is empty" do
+      expect(subject.depth(subject.root)).to eq(0)
+    end
+
+    it "returns 1 if tree has one node" do
+      subject.insert(10)
+      expect(subject.depth(subject.root)).to eq(1)
+    end
+
+    it "returns 2 if tree has two nodes" do
+      [10, 6].each { |el| subject.insert(el) }
+      expect(subject.depth(subject.root)).to eq(2)
+    end
+
+    it "returns 2 if tree has three nodes on two levels" do
+      [10, 6, 12].each { |el| subject.insert(el) }
+      expect(subject.depth(subject.root)).to eq(2)
+    end
+
+    it "returns 3 if tree has three nodes on three levels leaning left" do
+      [10, 6, 8].each { |el| subject.insert(el) }
+      expect(subject.depth(subject.root)).to eq(3)
+    end
+
+    it "returns 3 if tree has three nodes on three levels leaning right" do
+      [10, 6, 12, 11].each { |el| subject.insert(el) }
+      expect(subject.depth(subject.root)).to eq(3)
+    end
+
+  end # depth
+
+  describe "BinarySearchTree#is_balanced?" do
+
+    it "returns true if no nodes" do
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if no children" do
+      subject.insert(10)
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if root has one child" do
+      [10, 6].each { |el| subject.insert(el) }
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if root has two children" do
+      [10, 6, 12].each { |el| subject.insert(el) }
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if sub-trees have same depth" do
+      [10, 6, 12, 4, 8, 7, 11, 14, 11.5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #     / \    /  \
+      #    4   8  11  14
+      #       /    \
+      #      7      11.5
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if sub-trees have depth +1" do
+      [10, 6, 12, 4, 8, 7, 11].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #     / \    /
+      #    4   8  11
+      #       /
+      #      7
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns true if sub-trees have depth -1" do
+      [10, 6, 12, 8, 11, 14, 11.5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #       \    /  \
+      #        8  11  14
+      #            \
+      #             11.5
+
+      expect(subject.is_balanced?).to be(true)
+    end
+
+    it "returns false if sub-trees have depth 2" do
+      [10, 6, 12, 4, 8, 7].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #     /  \
+      #    4    8
+      #        /
+      #       7
+
+      expect(subject.is_balanced?).to be(false)
+    end
+
+    it "returns false if sub-trees have depth -2" do
+      [10, 6, 12, 11, 14, 11.5].each { |el| subject.insert(el) }
+
+      #    expected structure:
+      #         10
+      #       /    \
+      #      6      12
+      #            /  \
+      #          11   14
+      #            \
+      #             11.5
+
+      expect(subject.is_balanced?).to be(false)
+    end
+
+  end #is_balanced?
+
+  describe "BinarySearchTree#traverse_in_order" do
+    it "returns sorted array of all nodes" do
+      unsorted = [10, 8, 12, 11, 6, 9, 14, 9, 13, 51]
+      sorted = unsorted.sort
+      unsorted.each { |el| subject.insert(el) }
+      #    expected structure
+      #         10
+      #       /    \
+      #      8      12
+      #     / \    /  \
+      #    6  9   11  14
+      #        \      / \
+      #        9    13   51
+      expect(subject.traverse_in_order).to eq(sorted)
+    end
+  end #traverse_in_order
+
+
 
 end #of BinarySearchTree
