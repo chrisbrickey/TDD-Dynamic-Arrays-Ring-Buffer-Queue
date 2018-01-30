@@ -1,5 +1,7 @@
 require_relative 'node'
 
+#this class does NOT rebalance and exists in order to test superior search speed of BalancedBST
+#see BalancedBST for balancing incorporated
 class BinarySearchTree
 
   attr_accessor :root
@@ -7,6 +9,22 @@ class BinarySearchTree
 
   def initialize
     @root = nil
+  end
+
+
+  def traverse_in_order(node = @root, sorted_arr=[])
+
+    if node.left
+      traverse_in_order(node.left, sorted_arr)
+    end
+
+    sorted_arr << node.value
+
+    if node.right
+      traverse_in_order(node.right, sorted_arr)
+    end
+
+    sorted_arr
   end
 
 
