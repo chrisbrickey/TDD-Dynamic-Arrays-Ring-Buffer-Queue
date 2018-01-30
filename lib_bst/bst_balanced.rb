@@ -11,13 +11,31 @@ class BalancedBST
 
   def rebalance
     if !is_balanced?
-       @root = 71
+      #
+      #
+      # sorted_version = [4, 5, 6, 8, 9, 10, 12, 14, 16]
+      # insert_order =
+      #  @root = 71
     end
+  end
+
+  def traverse_in_order(node = @root, sorted_arr=[])
+
+    if node.left
+      traverse_in_order(node.left, sorted_arr)
+    end
+
+    sorted_arr << node.value
+
+    if node.right
+      traverse_in_order(node.right, sorted_arr)
+    end
+
+    sorted_arr
   end
 
   def is_balanced?
     return true if @root.nil?
-    # return true if @root.left.nil? && @root.right.nil?
 
     left_depth = depth(@root.left)
     right_depth = depth(@root.right)
