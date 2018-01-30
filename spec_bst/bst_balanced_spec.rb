@@ -316,14 +316,14 @@ describe BalancedBST do
 
 
     it "when the target has only one child, it restructures the tree correctly" do
-      [10, 8, 12, 6, 7, 14, 13, 51].each { |el| subject.insert(el) }
+      [10, 8, 12, 6, 9, 14, 7, 13, 51].each { |el| subject.insert(el) }
 
-      #    expected structure:
+      #    expected structure (should not require rebalancing to construct):
       #         10
-      #       /    \
+      #       /     \
       #      8      12
-      #     /        \
-      #    6         14
+      #     / \       \
+      #    6   9      14
       #     \        / \
       #     7       13  51
 
@@ -333,8 +333,8 @@ describe BalancedBST do
       #         10
       #       /    \
       #      8      14
-      #     /      / \
-      #    6     13   51
+      #     / \     / \
+      #    6   9  13   51
       #     \
       #     7
 
@@ -348,7 +348,7 @@ describe BalancedBST do
 
       expect(first_left.left.value).to eq(6)
       expect(first_left.left.right.value).to eq(7)
-      expect(first_left.right).to eq(nil)
+      expect(first_left.right.value).to eq(9)
 
       expect(first_right.left.value).to eq(13)
       expect(first_right.right.value).to eq(51)
@@ -356,23 +356,23 @@ describe BalancedBST do
       expect(first_right.right.right).to eq(nil)
 
 
-      subject.delete(8)
+      subject.delete(6)
 
       #    expected structure:
       #         10
       #       /    \
-      #     6       14
-      #      \      / \
-      #       7   13   51
+      #     8       14
+      #    / \      / \
+      #   7   9   13   51
 
-      first_left = subject.root.left #6
+      first_left = subject.root.left #8
       first_right = subject.root.right #14
-      expect(first_left.value).to eq(6)
+      expect(first_left.value).to eq(8)
       expect(first_left.parent.value).to eq(10)
       expect(first_right.value).to eq(14)
 
-      expect(first_left.left).to eq(nil)
-      expect(first_left.right.value).to eq(7)
+      expect(first_left.left.value).to eq(7)
+      expect(first_left.right.value).to eq(9)
       expect(first_left.right.right).to eq(nil)
 
       expect(first_right.left.value).to eq(13)
@@ -383,47 +383,36 @@ describe BalancedBST do
 
 
     it "when the target has only one child and target is root, it restructures the tree correctly" do
-      [10, 12, 14, 13, 51].each { |el| subject.insert(el) }
+      [10, 12].each { |el| subject.insert(el) }
 
-      #    expected structure:
+      #    expected structure (does not require rebalancing while building):
       #         10
       #           \
       #            12
-      #             \
-      #             14
-      #            / \
-      #          13  51
 
       subject.delete(10)
 
       #    expected structure:
       #            12
-      #             \
-      #             14
-      #            / \
-      #          13  51
 
       expect(subject.root.value).to eq(12)
       expect(subject.root.parent).to eq(nil)
 
       expect(subject.root.left).to eq(nil)
-      expect(subject.root.right.value).to eq(14)
-
-      expect(subject.root.right.left.value).to eq(13)
-      expect(subject.root.right.right.value).to eq(51)
+      expect(subject.root.right).to eq(nil)
     end
 
     it "when target has 2 children and left child is max of left subtree, it restructures the tree correctly" do
-      [10, 8, 14, 6, 9, 12, 16, 4, 5].each { |el| subject.insert(el) }
+      [10, 8, 14, 6, 9, 12, 16, 4, 8.5, 9.5, 11, 13, 15, 17, 5].each { |el| subject.insert(el) }
 
-      #    expected structure:
-      #          10
-      #       /       \
-      #      8         14
-      #     / \      /     \
-      #    6  9     12      16
-      #   /
-      #  4
+      #    expected structure (no rebalancing required during build):
+      #             10
+      #        /          \
+      #       8                14
+      #     /   \            /     \
+      #    6     9          12      16
+      #   /     /  \       /  \     /  \
+      #  4    8.5   9.5   11  13   15   17
       #   \
       #    5
 
@@ -438,6 +427,14 @@ describe BalancedBST do
       #     \
       #      5
 
+      #             10
+      #        /          \
+      #       6                14
+      #     /    \            /     \
+      #    4       9          12      16
+      #    \      /  \       /  \     /  \
+      #     5   8.5   9.5   11  13   15   17
+
       expect(subject.root.value).to eq(10)
       expect(subject.root.left.value).to eq(6)
       expect(subject.root.left.parent.value).to eq(10)
@@ -446,49 +443,50 @@ describe BalancedBST do
       expect(subject.root.left.right.value).to eq(9)
       expect(subject.root.left.right.parent.value).to eq(6)
 
-      expect(subject.root.left.right.right).to eq(nil)
       expect(subject.root.left.left.left).to eq(nil)
       expect(subject.root.left.left.right.value).to eq(5)
     end
 
 
     it "when the target has two children, it restructures the tree correctly" do
-      [10, 8, 14, 6, 9, 12, 16, 7, 6.5, 4, 15, 13, 11, 12.5].each { |el| subject.insert(el) }
+      [10, 8, 14, 6, 9, 12, 16, 4, 7, 8.5, 9.5, 11, 13, 15, 17, 6.5, 12.5].each { |el| subject.insert(el) }
 
-      #    expected structure:
-      #          10
-      #       /       \
-      #      8         14
-      #     / \      /     \
-      #    6  9     12      16
-      #   / \      / \      /
-      #  4   7    11  13  15
-      #     /         /
-      #    6.5      12.5
+      #    expected structure (does not require rebalancing during build):
+      #               10
+      #           /             \
+      #        8                       14
+      #     /     \                /       \
+      #    6         9           12         16
+      #   /  \     /   \        /  \       /  \
+      #  4    7   8.5  9.5    11   13     15   17
+      #      /                    /
+      #    6.5                  12.5
 
       subject.delete(8)
 
       #    expected structure:
-      #          10
-      #       /       \
-      #      7          14
-      #    /  \       /   \
-      #   6   9      12      16
-      #  / \        / \     /
-      # 4   6.5    11  13  15
-      #                /
-      #              12.5
+      #               10
+      #           /             \
+      #        7                       14
+      #     /     \                /       \
+      #    6         9           12         16
+      #   /  \     /   \        /  \       /  \
+      #  4   6.5   8.5  9.5    11   13     15   17
+      #                              /
+      #                           12.5
+
+
 
       expect(subject.root.value).to eq(10)
       expect(subject.root.left.value).to eq(7)
       expect(subject.root.left.parent.value).to eq(10)
 
-      expect(subject.root.left.left.value).to eq(6)  #where we are failing
+      expect(subject.root.left.left.value).to eq(6)
       expect(subject.root.left.left.parent.value).to eq(7)
       expect(subject.root.left.right.value).to eq(9)
       expect(subject.root.left.right.parent.value).to eq(7)
 
-      expect(subject.root.left.right.right).to eq(nil)
+      expect(subject.root.left.right.right.value).to eq(9.5)
       expect(subject.root.left.left.left.value).to eq(4)
       expect(subject.root.left.left.right.value).to eq(6.5)
       expect(subject.root.left.left.right.left).to eq(nil)
@@ -498,13 +496,13 @@ describe BalancedBST do
       subject.delete(14)
 
       #    expected structure:
-      #           10
-      #       /        \
-      #      7           13
-      #     / \       /      \
-      #    6  9      12        16
-      #   / \       /  \      /
-      #  4  6.5    11  12.5  15
+      #               10
+      #           /             \
+      #        7                       13
+      #     /     \                /       \
+      #    6         9           12          16
+      #   /  \     /   \        /  \        /  \
+      #  4   6.5   8.5  9.5    11   12.5   15   17
 
       expect(subject.root.right.value).to eq(13)
       expect(subject.root.right.parent.value).to eq(10)
@@ -518,15 +516,15 @@ describe BalancedBST do
       expect(subject.root.right.left.right.value).to eq(12.5)
       expect(subject.root.right.left.right.left).to eq(nil)
 
-      expect(subject.root.right.right.right).to eq(nil)
+      expect(subject.root.right.right.right.value).to eq(17)
       expect(subject.root.right.right.left.value).to eq(15)
 
     end
 
     it "when the target is the root and it has two children, it restructures the tree correctly" do
-      [10, 6, 12, 4, 8, 7, 11, 14].each { |el| subject.insert(el) }
+      [10, 6, 12, 4, 8, 11, 14, 7].each { |el| subject.insert(el) }
 
-      #    expected structure:
+      #    expected structure (does not require rebalancing during build):
       #         10
       #       /    \
       #      6      12
@@ -542,13 +540,13 @@ describe BalancedBST do
       #       /     \
       #      6       12
       #     / \     /  \
-      #    4   7    11  14
+      #    4   7   11  14
 
       expect(subject.root.value).to eq(8)
       expect(subject.root.parent).to eq(nil)
 
-      first_left = subject.root.left
-      first_right = subject.root.right
+      first_left = subject.root.left #6
+      first_right = subject.root.right #12
       expect(first_left.value).to eq(6)
       expect(first_left.parent.value).to eq(8)
       expect(first_right.value).to eq(12)
