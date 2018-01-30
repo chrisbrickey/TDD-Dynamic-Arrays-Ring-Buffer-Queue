@@ -586,10 +586,52 @@ describe BalancedBST do
 
     end
 
-    xit "doesn't rebalance when deletion does not create imbalance" do
+    it "doesn't rebalance when deletion does not create imbalance" do
+      [10, 8, 12, 6, 9, 14, 7, 13, 51].each { |el| subject.insert(el) }
+
+      #    expected structure (should not require rebalancing to construct):
+      #         10
+      #       /     \
+      #      8      12
+      #     / \       \
+      #    6   9      14
+      #     \        / \
+      #     7       13  51
+
+      subject.delete(12)
+
+      #    expected structure (does not require rebalancing after deletion):
+      #         10
+      #       /    \
+      #      8      14
+      #     / \     / \
+      #    6   9  13   51
+      #     \
+      #     7
+
+      expect(subject.root.value).to eq(10)
+
+      first_left = subject.root.left #8
+      first_right = subject.root.right #14
+      expect(first_left.value).to eq(8)
+      expect(first_right.value).to eq(14)
+      expect(first_right.parent.value).to eq(10)
+
+      expect(first_left.left.value).to eq(6)
+      expect(first_left.left.right.value).to eq(7)
+      expect(first_left.right.value).to eq(9)
+
+      expect(first_right.left.value).to eq(13)
+      expect(first_right.right.value).to eq(51)
+      expect(first_right.right.left).to eq(nil)
+      expect(first_right.right.right).to eq(nil)
+
     end
 
-    xit "does rebalance when deletion creates imbalance" do
+    xit "rebalances small tree when deletion creates imbalance" do
+    end
+
+    xit "rebalances large tree when deletion creates imbalance" do
     end
 
   end #delete
@@ -647,73 +689,78 @@ describe BalancedBST do
 
   end #rebalance_array
 
-  # describe "BalancedBST#rebalance_tree" do
-  #   it "doesn't change a balanced tree" do
-  #     manually_balanced_tree = BinarySearchTree.new
-  #     [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| manually_balanced_tree.insert(el) }
-  #     expect(manually_balan)
-  #     manually_balanced_tree.rebalance_tree
-  #     #    expected structure (unchanged because already balanced):
-  #     #         10
-  #     #       /    \
-  #     #      8      12
-  #     #     / \    /  \
-  #     #    6  9   11  14
-  #     #        \      / \
-  #     #        9    13   51
-  #
-  #     expect(subject.root.value).to eq(10)
-  #
-  #     first_left = subject.root.left
-  #     first_right = subject.root.right
-  #     expect(first_left.value).to eq(8)
-  #     expect(first_right.value).to eq(12)
-  #
-  #     expect(first_left.left.value).to eq(6)
-  #     expect(first_left.right.right.value).to eq(9)
-  #     expect(first_right.left.value).to eq(11)
-  #     expect(first_right.right.left.value).to eq(13)
-  #
-  #     expect(first_right.right.right.left).to eq(nil)
-  #     expect(first_right.right.right.right).to eq(nil)
-  #   end
-  #
-  #   it "balances an unbalanced tree" do
-  #     unsorted = [10, 8, 14, 6, 9, 12, 16, 4, 5]
-  #     sorted = unsorted.sort
-  #     unsorted.each { |el| subject.insert(el) }
-  #
-  #     #    expected unsorted structure (should not rebalance until last element added):
-  #     #          10
-  #     #       /       \
-  #     #      8         14
-  #     #     / \      /     \
-  #     #    6  9     12      16
-  #     #   /
-  #     #  4
-  #     #   \
-  #     #    5
-  #
-  #
-  #     #    expected rebalanced structure:
-  #     #4, 5, 6, 8, 9, 10, 12, 14, 16
-  #     # size = 9
-  #     # mid = 4
-  #     #          9
-  #     #       /     \
-  #     #      8        10
-  #     #     / \      /    \
-  #     #    6              12
-  #     #   /                \
-  #     # 5                   14
-  #     #/                     \
-  #     #4                      16
-  #
-  #     expect(subject.is_balanced?).to be false
-  #     subject.rebalance_tree
-  #     expect(subject.is_balanced?).to be true
-  #   end
-  #
-  # end #of rebalance_tree
-
 end #of BalancedBST
+
+
+
+
+
+
+# describe "BalancedBST#rebalance_tree" do
+#   it "doesn't change a balanced tree" do
+#     manually_balanced_tree = BinarySearchTree.new
+#     [10, 8, 12, 11, 6, 9, 14, 9, 13, 51].each { |el| manually_balanced_tree.insert(el) }
+#     expect(manually_balan)
+#     manually_balanced_tree.rebalance_tree
+#     #    expected structure (unchanged because already balanced):
+#     #         10
+#     #       /    \
+#     #      8      12
+#     #     / \    /  \
+#     #    6  9   11  14
+#     #        \      / \
+#     #        9    13   51
+#
+#     expect(subject.root.value).to eq(10)
+#
+#     first_left = subject.root.left
+#     first_right = subject.root.right
+#     expect(first_left.value).to eq(8)
+#     expect(first_right.value).to eq(12)
+#
+#     expect(first_left.left.value).to eq(6)
+#     expect(first_left.right.right.value).to eq(9)
+#     expect(first_right.left.value).to eq(11)
+#     expect(first_right.right.left.value).to eq(13)
+#
+#     expect(first_right.right.right.left).to eq(nil)
+#     expect(first_right.right.right.right).to eq(nil)
+#   end
+#
+#   it "balances an unbalanced tree" do
+#     unsorted = [10, 8, 14, 6, 9, 12, 16, 4, 5]
+#     sorted = unsorted.sort
+#     unsorted.each { |el| subject.insert(el) }
+#
+#     #    expected unsorted structure (should not rebalance until last element added):
+#     #          10
+#     #       /       \
+#     #      8         14
+#     #     / \      /     \
+#     #    6  9     12      16
+#     #   /
+#     #  4
+#     #   \
+#     #    5
+#
+#
+#     #    expected rebalanced structure:
+#     #4, 5, 6, 8, 9, 10, 12, 14, 16
+#     # size = 9
+#     # mid = 4
+#     #          9
+#     #       /     \
+#     #      8        10
+#     #     / \      /    \
+#     #    6              12
+#     #   /                \
+#     # 5                   14
+#     #/                     \
+#     #4                      16
+#
+#     expect(subject.is_balanced?).to be false
+#     subject.rebalance_tree
+#     expect(subject.is_balanced?).to be true
+#   end
+#
+# end #of rebalance_tree
