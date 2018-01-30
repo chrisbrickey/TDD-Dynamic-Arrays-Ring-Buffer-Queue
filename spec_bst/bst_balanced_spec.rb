@@ -120,7 +120,7 @@ describe BalancedBST do
       expect(first_left.right).to eq(nil)
     end
 
-    it "does rebalance small tree when insertion creates imbalance" do
+    it "rebalances small tree when insertion creates imbalance" do
       [8, 12, 10].each { |el| subject.insert(el) }
       #    expected structure:   -->
       #         8                     10
@@ -142,10 +142,34 @@ describe BalancedBST do
 
     end
 
-    xit "doesn't rebalance large tree when insertion does not create imbalance" do
-    end
+    it "rebalances large tree when insertion creates imbalance" do
+      [10, 9, 12, 6, 8].each { |el| subject.insert(el) }
+      #    expected structure:     -->
+      #         10                     9
+      #        /   \                 /    \
+      #       9     12              8      12
+      #     /                      /      /
+      #    6                      6      10
+      #    \
+      #     8
 
-    xit "does rebalance large tree when insertion creates imbalance" do
+      expect(subject.root.parent).to eq(nil)
+      expect(subject.root.value).to eq(9)
+
+      first_left = subject.root.left #8
+      first_right = subject.root.right #12
+      expect(first_left.value).to eq(8)
+      expect(first_right.value).to eq(12)
+      expect(first_left.parent.value).to eq(9)
+      expect(first_right.parent.value).to eq(9)
+
+      expect(first_left.left.parent.value).to eq(8)
+      expect(first_left.left.value).to eq(6)
+      expect(first_left.right).to eq(nil)
+
+      expect(first_right.left.parent.value).to eq(12)
+      expect(first_right.left.value).to eq(10)
+      expect(first_right.right).to eq(nil)
     end
 
   end #insert
