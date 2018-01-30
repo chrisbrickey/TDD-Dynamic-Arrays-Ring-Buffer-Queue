@@ -27,6 +27,16 @@ class BinarySearchTree
     sorted_arr
   end
 
+  def is_balanced?
+    return true if @root.nil?
+
+    left_depth = depth(@root.left)
+    right_depth = depth(@root.right)
+    delta = (left_depth - right_depth).abs
+
+    delta <= 1 #implicit return
+  end
+
   def depth(node=@root) #counting levels using bfs
     depth = 0
     return depth if node.nil?
