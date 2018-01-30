@@ -667,10 +667,29 @@ describe BalancedBST do
     end
 
     it "sorts short array correctly" do
-      original = [8, 10, 12]
-      re_arranged = [10, 8, 12]
-      expect(subject.rebalanced_array(original)).to eq(re_arranged)
+      array_from_in_order_traversal = [8, 10, 12]
+      manually_balanced_tree1 = BinarySearchTree.new
+      array_from_in_order_traversal.each { |val| manually_balanced_tree1.insert(val) }
+      expect(manually_balanced_tree1.is_balanced?).to be false
+
+      arr_after_rebalancing = subject.rebalanced_array(array_from_in_order_traversal) #should be like [10, 8, 12]
+      manually_balanced_tree2 = BinarySearchTree.new
+      arr_after_rebalancing.each { |val| manually_balanced_tree2.insert(val) }
+      expect(manually_balanced_tree2.is_balanced?).to be true
     end
-  end
+
+    it "sorts long array correctly" do
+      array_from_in_order_traversal = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
+      manually_balanced_tree1 = BinarySearchTree.new
+      array_from_in_order_traversal.each { |val| manually_balanced_tree1.insert(val) }
+      expect(manually_balanced_tree1.is_balanced?).to be false
+
+      arr_after_rebalancing = subject.rebalanced_array(array_from_in_order_traversal)
+      manually_balanced_tree2 = BinarySearchTree.new
+      arr_after_rebalancing.each { |val| manually_balanced_tree2.insert(val) }
+      expect(manually_balanced_tree2.is_balanced?).to be true
+    end
+
+  end #rebalanced_array
 
 end #of BalancedBST
