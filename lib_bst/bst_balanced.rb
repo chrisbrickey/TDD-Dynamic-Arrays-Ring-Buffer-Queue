@@ -9,6 +9,24 @@ class BalancedBST
     @root = nil
   end
 
+
+  def traverse_in_order(node = @root, sorted_arr=[])
+    #does not handle trees where @root == nil
+
+    if node.left
+      traverse_in_order(node.left, sorted_arr)
+    end
+
+    sorted_arr << node.value
+
+    if node.right
+      traverse_in_order(node.right, sorted_arr)
+    end
+
+    sorted_arr
+  end
+
+
   def rebalance_array(original_arr, sorted_arr=[])
     size = original_arr.length
     return [] if size <= 0
@@ -25,78 +43,13 @@ class BalancedBST
     sorted_arr
   end
 
-  def rebalance_tree
-    if !is_balanced?
-      print "inside rebalance_tree conditional===========\n"
-      rebalanced_arr = rebalance_array(traverse_in_order)
-      @root = Node.new(rebalanced_arr.shift)
-      rebalanced_arr.each { |val| insert(val) }
-    else
-      print "did not rebalance because not unbalanced"
-    end
-  end
 
-  #does not work for trees where @root == nil
-  def traverse_in_order(node = @root, sorted_arr=[])
 
-    if node.left
-      traverse_in_order(node.left, sorted_arr)
-    end
-
-    sorted_arr << node.value
-
-    if node.right
-      traverse_in_order(node.right, sorted_arr)
-    end
-
-    sorted_arr
-  end
 
 
   def insert(el)
-
     insert_recursively(el)
-
-    if !is_balanced?
-      # rebalance_tree
-      
-      print "THIS IS NOT BALANCED SO HERE WE GO REBALANCING\n"
-      existing_sorted_arr = traverse_in_order.dup
-      print "existing_sorted_arr: #{existing_sorted_arr}\n"
-      rebalanced_arr = rebalance_array(existing_sorted_arr)
-      print "rebalanced_arr: #{rebalanced_arr}\n"
-
-      @root = nil
-      rebalanced_arr.each { |val| insert_recursively(el) }
-    end
-
-  end
-
-  def insert_recursively(el, tree_node=@root)
-
-    if (@root.nil?) && (tree_node == @root)
-      @root = Node.new(el)
-      return @root
-    end
-
-    if el < tree_node.value
-      if tree_node.left
-        insert_recursively(el, tree_node.left)
-      else
-        new_node = Node.new(el)
-        new_node.parent = tree_node
-        tree_node.left = new_node
-      end
-    else # el >= tree_node.value
-      if tree_node.right
-        insert_recursively(el, tree_node.right)
-      else
-        new_node = Node.new(el)
-        new_node.parent = tree_node
-        tree_node.right = new_node
-      end
-    end
-
+    rebalance_tree if !is_balanced?
   end
 
 
@@ -207,15 +160,34 @@ class BalancedBST
 
   private
 
-  def is_balanced?
-    return true if @root.nil?
 
-    left_depth = depth(@root.left)
-    right_depth = depth(@root.right)
-    delta = (left_depth - right_depth).abs
+  def insert_recursively(el, tree_node=@root)
 
-    delta <= 1 #implicit return
+    if (@root.nil?) && (tree_node == @root)
+      @root = Node.new(el)
+      return @root
+    end
+
+    if el < tree_node.value
+      if tree_node.left
+        insert_recursively(el, tree_node.left)
+      else
+        new_node = Node.new(el)
+        new_node.parent = tree_node
+        tree_node.left = new_node
+      end
+    else # el >= tree_node.value
+      if tree_node.right
+        insert_recursively(el, tree_node.right)
+      else
+        new_node = Node.new(el)
+        new_node.parent = tree_node
+        tree_node.right = new_node
+      end
+    end
+
   end
+
 
   def depth(node=@root) #counting levels using bfs
     depth = 0
@@ -238,5 +210,27 @@ class BalancedBST
 
     depth
   end
+
+
+  def is_balanced?
+    return true if @root.nil?
+
+    left_depth = depth(@root.left)
+    right_depth = depth(@root.right)
+    delta = (left_depth - right_depth).abs
+
+    delta <= 1 #implicit return
+  end
+
+
+  def rebalance_tree
+    print "rebalancing....\n"
+    existing_sorted_arr = traverse_in_order.dup
+
+    @root = nil
+    rebalanced_arr = rebalance_array(existing_sorted_arr)
+    rebalanced_arr.each { |val| insert_recursively(val) }
+  end
+
 
 end #of BalancedBST
