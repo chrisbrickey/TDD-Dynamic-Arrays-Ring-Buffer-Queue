@@ -11,24 +11,38 @@ class BalancedBST
 
   def rebalance
     if !is_balanced?
+      print "inside rebalance conditional===========\n"
       sorted_arr = traverse_in_order
-      mid = sorted_arr.length / 2
+      size = sorted_arr.length
+      p sorted_arr
+      mid = size / 2
       @root = Node.new(sorted_arr[mid])
-      
-      delta = 1
-      lefty = sorted_arr[mid - delta]
-      righty = sorted_arr[mid + delta]
-      while !lefty.nil? || !righty.nil?
+      # insert(sorted_arr[mid])
 
-        if lefty
-          insert(lefty)
+      delta = 1
+      left_idx = mid - delta
+      right_idx = mid + delta
+      # lefty = sorted_arr[mid - delta]
+      # righty = sorted_arr[mid + delta]
+      # while !lefty.nil? || !righty.nil?
+      while left_idx >= 0 || right_idx < size
+        p "lefty: #{sorted_arr[left_idx]}\n"
+        p "righty: #{sorted_arr[right_idx]}\n"
+
+        if left_idx >= 0
+          p "inserting lefty now..."
+          insert(sorted_arr[left_idx])
         end
-        if righty
-          insert(righty)
+
+        if right_idx < size
+          p "inserting righty now..."
+          insert(sorted_arr[right_idx])
         end
         delta += 1
-        lefty = sorted_arr[mid - delta]
-        righty = sorted_arr[mid + delta]
+        left_idx = mid - delta
+        right_idx = mid + delta
+        # lefty = sorted_arr[mid - delta]
+        # righty = sorted_arr[mid + delta]
       end
 
     end
@@ -107,6 +121,7 @@ class BalancedBST
       end
     end
 
+    rebalance
   end
 
 
