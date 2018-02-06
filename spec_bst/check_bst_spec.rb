@@ -51,5 +51,33 @@ describe "checkBST" do
     expect(checkBST(subject.root)).to be false
   end
 
+end #of checkBST
 
-end
+describe "#check_subtree" do
+
+  let(:big_tree) { BinarySearchTree.new }
+  let(:small_tree) { BinarySearchTree.new }
+
+  it "returns false when root does not exist in larger tree" do
+    [10, 8, 12, 11, 6, 9, 14].each { |el| big_tree.insert(el) }
+    #    expected structure:
+    #         10
+    #       /    \
+    #      8      12
+    #     / \    /  \
+    #    6  9   11  14
+
+    small_tree.insert(13)
+    #    expected structure:
+    #         13
+
+    expect(check_subtree(small_tree, big_tree)).to be false
+  end
+
+  xit "returns false when small tree does not exist in larger tree" do
+  end
+
+  xit "returns true when small tree exists in larger tree" do
+  end
+
+end #of check_subtree
