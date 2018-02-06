@@ -34,5 +34,18 @@ end
 
 
 def check_subtree(small, large)
-  false
+  start_node = bsearch(large.root, small.root.value)
+  !start_node.nil?
+end
+
+def bsearch(tree_node, target)
+  return nil if tree_node.nil?
+
+  if tree_node.value == target
+    return tree_node
+  elsif target < tree_node.value
+    return bsearch(tree_node.left, target)
+  else
+    return bsearch(tree_node.right, target)
+  end
 end
