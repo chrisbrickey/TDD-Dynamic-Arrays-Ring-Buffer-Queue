@@ -74,10 +74,38 @@ describe "#check_subtree" do
     expect(check_subtree(small_tree, big_tree)).to be false
   end
 
-  xit "returns false when small tree does not exist in larger tree" do
+  it "returns false when small tree does not exist in larger tree" do
+    [10, 8, 12, 11, 6, 9, 14].each { |el| big_tree.insert(el) }
+    #    expected structure:
+    #         10
+    #       /    \
+    #      8      12
+    #     / \    /  \
+    #    6  9   11  14
+
+    [8, 4, 9].each { |el| small_tree.insert(el) }
+    #    expected structure:
+    #      8
+    #     / \
+    #    4   9
+    expect(check_subtree(small_tree, big_tree)).to be false
   end
 
-  xit "returns true when small tree exists in larger tree" do
+  it "returns true when small tree exists in larger tree" do
+    [10, 8, 12, 11, 6, 9, 14].each { |el| big_tree.insert(el) }
+    #    expected structure:
+    #         10
+    #       /    \
+    #      8      12
+    #     / \    /  \
+    #    6  9   11  14
+
+    [12, 11, 14].each { |el| small_tree.insert(el) }
+    #    expected structure:
+    #      12
+    #     / \
+    #    11   14
+    expect(check_subtree(small_tree, big_tree)).to be true
   end
 
 end #of check_subtree
