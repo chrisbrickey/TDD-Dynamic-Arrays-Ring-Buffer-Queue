@@ -35,7 +35,22 @@ end
 
 def check_subtree(small, large)
   start_node = bsearch(large.root, small.root.value)
-  !start_node.nil?
+  return false if start_node.nil?
+  traverse_in_order(small.root) == traverse_in_order(start_node)
+end
+
+def traverse_in_order(tree_node, sorted_arr=[])
+  if tree_node.left
+    traverse_in_order(tree_node.left, sorted_arr)
+  end
+
+  sorted_arr << tree_node.value
+
+  if tree_node.right
+    traverse_in_order(tree_node.right, sorted_arr)
+  end
+
+  sorted_arr
 end
 
 def bsearch(tree_node, target)
